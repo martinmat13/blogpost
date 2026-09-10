@@ -1,4 +1,3 @@
-// content/inspirationals.json
 {
   "entries": [
     {
@@ -6,14 +5,12 @@
       "attribution": "Psalm 30:5",
       "tag": "Hope",
       "style": "blush"
-      // "image": "content/images/uploads/morning-sunrise.jpg"
     },
     {
       "quote": "The Lord is my strength and my shield; my heart trusted in Him, and I am helped.",
       "attribution": "Psalm 28:7",
       "tag": "Strength",
       "style": "sage"
-      // "image": "content/images/uploads/shield.jpg"
     }
   ]
 }

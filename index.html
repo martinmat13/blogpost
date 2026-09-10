@@ -1,132 +1,62 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inspirational Journal</title>
+    <meta name="description" content="A quiet journal about finding hope, faith and healing in ordinary days.">
+    <title>Held in the Morning | A journal of hope</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <style>
+        :root { --ink: #263b38; --muted: #6c7d78; --paper: #fbfaf6; --coral: #e7775d; }
+        * { box-sizing: border-box; }
+        body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; }
+        .serif { font-family: 'Fraunces', serif; }
+        .grain { background-image: radial-gradient(rgba(38,59,56,.09) .7px, transparent .7px); background-size: 12px 12px; }
+        .hero-wash { background: linear-gradient(135deg, #e1f0e9 0%, #f8e6c5 52%, #f8d9cd 100%); }
+        .story-card { transition: transform .22s ease, box-shadow .22s ease; }
+        .story-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(38,59,56,.13); }
+        .story-card:focus-within { outline: 3px solid rgba(231,119,93,.45); outline-offset: 3px; }
+        .fade-in { animation: fade-in .5s ease both; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .toast { animation: toast-in .25s ease both; }
+        @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
-
-    <!-- Header -->
-    <header class="bg-white border-b border-slate-200 py-6 shadow-sm">
-        <div class="max-w-4xl mx-auto px-4 flex justify-between items-center">
-            <h1 id="site-title" class="text-2xl font-bold tracking-tight text-slate-900 cursor-pointer" onclick="goHome()">Inspirational Journal</h1>
-            <a href="/admin/" class="text-sm font-medium text-indigo-600 hover:text-indigo-800">Admin</a>
+<body class="min-h-screen">
+    <header class="border-b border-[#dfe7e1] bg-[#fbfaf6]/90 sticky top-0 z-20 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+            <button id="home-button" class="flex items-center gap-3 text-left" aria-label="Go to the homepage"><span class="grid place-items-center w-10 h-10 rounded-full bg-[#263b38] text-[#f7e7b6] text-xl serif">H</span><span><strong class="serif text-xl tracking-tight">Held in the Morning</strong><span class="block text-xs text-[#6c7d78]">a journal of hope</span></span></button>
+            <div class="flex items-center gap-3"><a href="#about" class="hidden sm:block text-sm font-semibold text-[#6c7d78] hover:text-[#263b38]">About</a><a href="#join" class="rounded-full bg-[#e7775d] px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#d8674e] transition">Join the circle</a></div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8">
-        
-        <!-- Category Navigation -->
-        <nav id="category-nav" class="flex flex-wrap gap-2 mb-8">
-            <button onclick="loadCategory('inspirationals', this)" class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white transition">Inspirationals</button>
-            <button onclick="loadCategory('beLikeJesus', this)" class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-300 text-slate-600 hover:bg-slate-100 transition">Be Like Jesus</button>
-            <button onclick="loadCategory('quietTime', this)" class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-300 text-slate-600 hover:bg-slate-100 transition">Quiet Time</button>
-            <button onclick="loadCategory('testimony', this)" class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-300 text-slate-600 hover:bg-slate-100 transition">Testimonies</button>
-        </nav>
+    <main>
+        <section class="hero-wash grain overflow-hidden"><div class="max-w-6xl mx-auto px-5 py-16 md:py-24 grid lg:grid-cols-[1.1fr_.9fr] gap-12 items-center"><div class="fade-in"><p id="hero-eyebrow" class="uppercase tracking-[.18em] text-xs font-bold text-[#b85b49] mb-5">Grace found me in the hospital room</p><h1 id="hero-headline" class="serif text-5xl md:text-7xl leading-[.98] max-w-3xl">Finding light in the storm, one healed day at a time</h1><p id="hero-subtext" class="mt-6 text-lg leading-8 text-[#526761] max-w-xl">A journal of sickness, surrender, and the slow, faithful love of Christ, written for anyone still waiting on their own miracle.</p><div class="mt-8 flex flex-wrap gap-3"><button id="latest-button" class="rounded-full bg-[#263b38] text-white px-5 py-3 font-bold hover:bg-[#38534e] transition">Read the latest story <span aria-hidden="true">&rarr;</span></button><a href="#stories" class="rounded-full border border-[#9db6ac] px-5 py-3 font-bold text-[#263b38] hover:bg-white/60 transition">Explore the journal</a></div></div><div class="relative hidden md:block fade-in" style="animation-delay:.12s"><div class="rounded-[2rem] bg-[#263b38] p-8 text-[#fbfaf6] rotate-2 shadow-2xl max-w-sm ml-auto"><span class="text-[#f7e7b6] text-4xl">“</span><p id="hero-verse" class="serif text-3xl leading-tight mt-2">Weeping may endure for a night, but joy cometh in the morning.</p><p id="hero-reference" class="text-sm text-[#b6cdc3] mt-6">Psalm 30:5</p></div><div class="absolute -bottom-5 left-8 bg-[#f7e7b6] px-4 py-3 rounded-xl text-sm font-bold rotate-[-5deg]">You are not walking alone.</div></div></div></section>
 
-        <!-- View Container (Grid vs Detail) -->
-        <div id="app-view">
-            <!-- Posts Grid will load here -->
-        </div>
+        <section id="stories" class="max-w-6xl mx-auto px-5 py-16"><div class="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8"><div><p class="text-xs uppercase tracking-[.18em] font-bold text-[#e7775d]">The journal</p><h2 class="serif text-4xl mt-2">Stories for the in-between</h2></div><div class="flex gap-3 w-full md:w-auto"><label class="relative flex-1 md:w-64"><span class="sr-only">Search stories</span><input id="search-input" type="search" placeholder="Search stories..." class="w-full rounded-full border border-[#d2dfd8] bg-white px-4 py-2.5 text-sm outline-none focus:border-[#e7775d]"></label><button id="random-button" title="Open a random story" class="rounded-full border border-[#d2dfd8] bg-white px-4 py-2.5 text-sm font-bold hover:bg-[#eef5f0]">Surprise me</button></div></div><div id="category-nav" class="flex flex-wrap gap-2 mb-8" role="tablist" aria-label="Story categories"></div><div id="app-view" aria-live="polite"></div></section>
+
+        <section id="about" class="border-y border-[#dfe7e1] bg-[#eef5f0]"><div class="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-[.8fr_1.2fr] gap-10 items-center"><p class="serif text-4xl">A softer place to land.</p><p id="about-bio" class="text-lg leading-8 text-[#526761] max-w-2xl"></p></div></section>
+        <section id="join" class="max-w-6xl mx-auto px-5 py-16"><div class="rounded-[2rem] bg-[#263b38] text-white p-8 md:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center"><div><p class="text-xs uppercase tracking-[.18em] font-bold text-[#f7e7b6]">Stay close</p><h2 class="serif text-4xl mt-2">A little hope, delivered.</h2><p class="text-[#c4d8cf] mt-3 max-w-xl">Join the circle for new stories, quiet prompts, and an occasional note from my corner of the world.</p></div><form id="subscribe-form" class="flex flex-col sm:flex-row gap-2"><label><span class="sr-only">Your email address</span><input id="email-input" type="email" required placeholder="you@example.com" class="rounded-full px-4 py-3 text-[#263b38] min-w-0 w-full sm:w-64 outline-none"></label><button class="rounded-full bg-[#e7775d] px-5 py-3 font-bold hover:bg-[#d8674e] transition">Join free</button></form></div></section>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm text-slate-500">
-        <p>&copy; 2026 Inspirational Journal. Built with care.</p>
-    </footer>
+    <footer class="border-t border-[#dfe7e1] px-5 py-8 text-sm text-[#6c7d78]"><div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between gap-3"><span>&copy; 2026 Held in the Morning</span><span>Made for the waiting, healing, and hopeful.</span></div></footer><div id="toast" class="hidden fixed bottom-6 left-1/2 z-30 rounded-full bg-[#263b38] text-white px-5 py-3 text-sm font-semibold shadow-xl"></div>
 
     <script>
-        let currentCategory = 'inspirationals';
-        let cachedData = {};
-
-        async function fetchContent(category) {
-            if (cachedData[category]) return cachedData[category];
-            try {
-                const response = await fetch(`content/${category}.json`);
-                if (!response.ok) throw new Error('Failed to load');
-                const data = await response.json();
-                cachedData[category] = data;
-                return data;
-            } catch (error) {
-                console.error(error);
-                return null;
-            }
-        }
-
-        async function loadCategory(category, btnElement) {
-            currentCategory = category;
-            
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.className = "category-btn px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-300 text-slate-600 hover:bg-slate-100 transition";
-            });
-            if(btnElement) {
-                btnElement.className = "category-btn px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white transition";
-            }
-
-            const rawData = await fetchContent(category);
-            const container = document.getElementById('app-view');
-
-            if (!rawData || !rawData.entries) {
-                container.innerHTML = `<p class="text-slate-500 text-center py-12">No entries found in this category yet.</p>`;
-                return;
-            }
-
-            let html = '<div class="grid grid-cols-1 md:grid-cols-2 gap-6">';
-            rawData.entries.forEach((entry, index) => {
-                const quote = entry.quote || "";
-                const attribution = entry.attribution || "";
-                const tag = entry.tag || "";
-                // const image = entry.image || "";
-                
-                let styleClass = "bg-white border-slate-200";
-                if (entry.style === 'blush') styleClass = "bg-rose-50/50 border-rose-100";
-                if (entry.style === 'sage') styleClass = "bg-emerald-50/50 border-emerald-100";
-                if (entry.style === 'cream') styleClass = "bg-amber-50/50 border-amber-100";
-
-                html += `
-                    <div onclick="viewPost('${category}', ${index})" class="${styleClass} rounded-2xl border p-6 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col justify-between">
-                        <!-- ${/* image ? `<img src="${image}" alt="Post image" class="w-full h-40 object-cover rounded-xl mb-4">` : '' */} -->
-                        <div>
-                            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/80 text-slate-600 border border-slate-200 mb-3">${tag}</span>
-                            <p class="text-lg font-medium text-slate-800 mb-4 leading-relaxed">"${quote}"</p>
-                        </div>
-                        <div class="flex justify-between items-center mt-2">
-                            <span class="text-sm font-semibold text-slate-500">${attribution}</span>
-                            <span class="text-xs font-medium text-indigo-600 hover:underline">Read card &rarr;</span>
-                        </div>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        async function viewPost(category, index) {
-            const rawData = await fetchContent(category);
-            const entry = rawData.entries[index];
-            const container = document.getElementById('app-view');
-
-            container.innerHTML = `
-                <button onclick="loadCategory('${currentCategory}')" class="mb-6 inline-flex items-center text-sm font-medium text-slate-600 hover:text-slate-900">&larr; Back to all posts</button>
-                <article class="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm max-w-2xl mx-auto">
-                    <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 mb-4">${entry.tag || ''}</span>
-                    <h2 class="text-2xl md:text-3xl font-medium text-slate-900 mb-6 leading-relaxed">"${entry.quote}"</h2>
-                    <!-- ${/* entry.image ? `<img src="${entry.image}" alt="Post image" class="w-full h-72 object-cover rounded-xl mb-6">` : '' */} -->
-                    <p class="text-right text-base font-semibold text-slate-600">${entry.attribution}</p>
-                </article>
-            `;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function goHome() {
-            loadCategory('inspirationals');
-        }
-
-        loadCategory('inspirationals');
+        const categories = { inspirationals: 'Inspirationals', beLikeJesus: 'Be like Jesus', quietTime: 'Quiet time', testimony: 'Testimonies' };
+        let cachedData = {}, currentCategory = 'inspirationals', currentEntries = [];
+        const $ = selector => document.querySelector(selector);
+        const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
+        const slug = (category, index) => `${category}-${index}`;
+        async function fetchContent(category) { if (cachedData[category]) return cachedData[category]; const response = await fetch(`content/${category}.json`); if (!response.ok) throw new Error('Unable to load stories'); cachedData[category] = await response.json(); return cachedData[category]; }
+        function showToast(message) { const toast = $('#toast'); toast.textContent = message; toast.className = 'toast fixed bottom-6 left-1/2 z-30 rounded-full bg-[#263b38] text-white px-5 py-3 text-sm font-semibold shadow-xl'; setTimeout(() => toast.classList.add('hidden'), 2800); }
+        function setCategoryButtons() { $('#category-nav').innerHTML = Object.entries(categories).map(([key, label]) => `<button data-category="${key}" class="category-btn rounded-full px-4 py-2 text-sm font-bold transition ${key === currentCategory ? 'bg-[#263b38] text-white' : 'bg-white border border-[#d2dfd8] text-[#526761] hover:bg-[#eef5f0]'}">${label}</button>`).join(''); }
+        function getLikes(id) { return Number(localStorage.getItem(`likes-${id}`) || 0); }
+        function renderCards(entries) { if (!entries.length) { $('#app-view').innerHTML = '<p class="py-16 text-center text-[#6c7d78]">No stories match that search yet.</p>'; return; } $('#app-view').innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">${entries.map(({ entry, index }, cardIndex) => { const id = slug(currentCategory, index); const tint = entry.style === 'sage' ? 'bg-[#e8f2ed]' : entry.style === 'cream' ? 'bg-[#fbf1d8]' : 'bg-[#fbe7e0]'; return `<article class="story-card ${tint} rounded-[1.5rem] p-6 min-h-[270px] flex flex-col justify-between fade-in" style="animation-delay:${cardIndex * .06}s"><div><div class="flex items-center justify-between gap-3"><span class="text-xs uppercase tracking-[.14em] font-bold text-[#b85b49]">${escapeHtml(entry.tag)}</span><span class="text-xs text-[#6c7d78]">${getLikes(id)} likes</span></div><button data-open="${index}" class="text-left w-full mt-7"><h3 class="serif text-2xl leading-snug hover:text-[#b85b49] transition">${escapeHtml(entry.quote)}</h3></button></div><div class="flex items-center justify-between mt-7"><span class="text-sm font-semibold text-[#6c7d78]">${escapeHtml(entry.attribution)}</span><button data-open="${index}" class="text-sm font-bold text-[#263b38] hover:text-[#b85b49]">Open story &rarr;</button></div></article>`; }).join('')}</div>`; }
+        async function loadCategory(category) { currentCategory = category; setCategoryButtons(); try { const data = await fetchContent(category); currentEntries = data.entries || []; renderCards(currentEntries.map((entry, index) => ({ entry, index }))); } catch (error) { $('#app-view').innerHTML = '<p class="py-16 text-center text-[#b85b49]">Stories are taking a quiet moment. Please try again.</p>'; } }
+        function openPost(index) { const entry = currentEntries[index]; if (!entry) return; const id = slug(currentCategory, index); const comments = JSON.parse(localStorage.getItem(`comments-${id}`) || '[]'); $('#app-view').innerHTML = `<button id="back-button" class="mb-7 text-sm font-bold text-[#6c7d78] hover:text-[#263b38]">&larr; Back to stories</button><article class="max-w-3xl mx-auto"><span class="inline-block rounded-full bg-[#f7e7b6] px-3 py-1 text-xs uppercase tracking-[.14em] font-bold text-[#705e2d]">${escapeHtml(entry.tag)}</span><h2 class="serif text-4xl md:text-6xl leading-tight mt-5">${escapeHtml(entry.quote)}</h2><p class="mt-5 text-[#6c7d78] font-semibold">${escapeHtml(entry.attribution)}</p><div class="border-y border-[#dfe7e1] my-10 py-4 flex flex-wrap gap-3"><button id="like-button" class="rounded-full bg-white border border-[#d2dfd8] px-4 py-2 text-sm font-bold hover:bg-[#eef5f0]">&#9829; <span id="like-count">${getLikes(id)}</span> Like</button><button id="share-button" class="rounded-full bg-white border border-[#d2dfd8] px-4 py-2 text-sm font-bold hover:bg-[#eef5f0]">Share story</button><button id="copy-button" class="rounded-full bg-white border border-[#d2dfd8] px-4 py-2 text-sm font-bold hover:bg-[#eef5f0]">Copy link</button></div><section><h3 class="serif text-3xl">Leave a little kindness</h3><form id="comment-form" class="mt-4 flex flex-col sm:flex-row gap-2"><label class="flex-1"><span class="sr-only">Your comment</span><input id="comment-input" required maxlength="240" placeholder="Share a thought..." class="w-full rounded-full border border-[#d2dfd8] bg-white px-4 py-3 outline-none focus:border-[#e7775d]"></label><button class="rounded-full bg-[#263b38] px-5 py-3 font-bold text-white">Post comment</button></form><div id="comments-list" class="mt-6 space-y-3">${comments.map(comment => `<p class="rounded-2xl bg-[#eef5f0] p-4 text-sm">${escapeHtml(comment)}</p>`).join('') || '<p class="text-sm text-[#6c7d78]">Be the first to leave a kind word.</p>'}</div></section></article>`; $('#back-button').onclick = () => loadCategory(currentCategory); $('#like-button').onclick = () => { const next = getLikes(id) + 1; localStorage.setItem(`likes-${id}`, next); $('#like-count').textContent = next; showToast('Thanks for sharing the love.'); }; $('#comment-form').onsubmit = event => { event.preventDefault(); const value = $('#comment-input').value.trim(); if (!value) return; comments.push(value); localStorage.setItem(`comments-${id}`, JSON.stringify(comments)); openPost(index); showToast('Your comment is now part of the story.'); }; $('#share-button').onclick = () => navigator.share ? navigator.share({ title: entry.quote, text: `A story from Held in the Morning: ${entry.quote}`, url: location.href }) : showToast('Your browser does not support native sharing yet.'); $('#copy-button').onclick = async () => { await navigator.clipboard.writeText(location.href); showToast('Story link copied.'); }; window.scrollTo({ top: $('#stories').offsetTop - 80, behavior: 'smooth' }); }
+        $('#category-nav').onclick = event => { const button = event.target.closest('[data-category]'); if (button) loadCategory(button.dataset.category); }; $('#app-view').onclick = event => { const button = event.target.closest('[data-open]'); if (button) openPost(Number(button.dataset.open)); }; $('#search-input').oninput = event => { const term = event.target.value.toLowerCase(); renderCards(currentEntries.map((entry, index) => ({ entry, index })).filter(({ entry }) => `${entry.quote} ${entry.tag} ${entry.attribution}`.toLowerCase().includes(term))); }; $('#random-button').onclick = () => { if (currentEntries.length) openPost(Math.floor(Math.random() * currentEntries.length)); }; $('#latest-button').onclick = () => { if (currentEntries.length) openPost(0); }; $('#home-button').onclick = () => { window.location.hash = ''; loadCategory('inspirationals'); window.scrollTo({ top: 0, behavior: 'smooth' }); }; $('#subscribe-form').onsubmit = event => { event.preventDefault(); localStorage.setItem('subscriber-email', $('#email-input').value); $('#email-input').value = ''; showToast('You are on the list. See you in the next story.'); }; async function init() { try { const site = await (await fetch('content/site.json')).json(); $('#hero-eyebrow').textContent = site.heroEyebrow; $('#hero-headline').textContent = site.heroHeadline; $('#hero-subtext').textContent = site.heroSubtext; $('#hero-verse').textContent = site.heroVerseText.replace(/^\"|\"$/g, ''); $('#hero-reference').textContent = site.heroVerseRef; $('#about-bio').textContent = site.aboutBio; } catch (error) {} await loadCategory('inspirationals'); } init();
     </script>
 </body>
 </html>

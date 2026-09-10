@@ -1,4 +1,3 @@
-// content/testimony.json
 {
   "entries": [
     {
@@ -6,14 +5,12 @@
       "attribution": "Jeremiah 29:11",
       "tag": "Hope",
       "style": "sage"
-      // "image": "content/images/uploads/future.jpg"
     },
     {
       "quote": "Fear not, for I am with you; be not dismayed, for I am your God. I will strengthen you.",
       "attribution": "Isaiah 41:10",
       "tag": "Strength",
       "style": "cream"
-      // "image": "content/images/uploads/strength.jpg"
     }
   ]
 }
