@@ -1,0 +1,40 @@
+{
+  "entries": [
+    {
+      "quote": "Weeping may endure for a night, but joy cometh in the morning.",
+      "attribution": "Psalm 30:5",
+      "tag": "Hope",
+      "style": "blush"
+    },
+    {
+      "quote": "The Lord is my strength and my shield; my heart trusted in Him, and I am helped.",
+      "attribution": "Psalm 28:7",
+      "tag": "Strength",
+      "style": "sage"
+    },
+    {
+      "quote": "A small thought: healing rarely looks like a light switch. More often, it's a sunrise — slow, quiet, and still entirely a miracle.",
+      "attribution": "— Naomi",
+      "tag": "Healing",
+      "style": "cream"
+    },
+    {
+      "quote": "Faith is the substance of things hoped for, the evidence of things not seen.",
+      "attribution": "Hebrews 11:1",
+      "tag": "Faith",
+      "style": "blush"
+    },
+    {
+      "quote": "For I know the plans I have for you, plans to give you hope and a future.",
+      "attribution": "Jeremiah 29:11",
+      "tag": "Hope",
+      "style": "sage"
+    },
+    {
+      "quote": "Fear not, for I am with you; be not dismayed, for I am your God. I will strengthen you.",
+      "attribution": "Isaiah 41:10",
+      "tag": "Strength",
+      "style": "cream"
+    }
+  ]
+}

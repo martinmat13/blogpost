@@ -1,0 +1,39 @@
+{
+  "entries": [
+    {
+      "year": "2019",
+      "title": "The Diagnosis",
+      "body": "Three words from a doctor turned my whole life sideways. I remember staring at the ceiling tile, waiting for the room to stop tilting.",
+      "icon": "circle-info",
+      "markerColor": "blush"
+    },
+    {
+      "year": "2020",
+      "title": "The Darkest Winter",
+      "body": "Hospital ceilings became familiar. I stopped praying for a while — not out of anger, just exhaustion. I didn't know grief and faith could sit in the same room.",
+      "icon": "moon",
+      "markerColor": "sage"
+    },
+    {
+      "year": "2021",
+      "title": "A Whisper of Hope",
+      "body": "A nurse hummed \"It Is Well\" while changing my IV, and something in me cracked open. It was small. It was enough.",
+      "icon": "sparkle",
+      "markerColor": "gold"
+    },
+    {
+      "year": "2022",
+      "title": "Healing Begins",
+      "body": "My body started answering prayers my mouth had stopped praying. Slowly. Unevenly. But undeniably.",
+      "icon": "heart",
+      "markerColor": "blush"
+    },
+    {
+      "year": "Today",
+      "title": "Walking in Freedom",
+      "body": "I still have hard days. But I know now that Christ was never late — He was building something in me the whole time. This blog is what came out of the waiting.",
+      "icon": "wind",
+      "markerColor": "sage"
+    }
+  ]
+}
