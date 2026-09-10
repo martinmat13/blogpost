@@ -30,6 +30,10 @@ collections:
           - { label: "Stat C label", name: "statCLabel", widget: "string" }
           - { label: "Featured post title", name: "postTitle", widget: "string" }
           - { label: "Featured post excerpt", name: "postExcerpt", widget: "text" }
+          - { label: "Author Profile Image", name: "authorImage", widget: "image", required: false }
+          - { label: "Email Link (e.g., mailto:email@example.com)", name: "socialEmail", widget: "string", required: false }
+          - { label: "Instagram Link", name: "socialInstagram", widget: "string", required: false }
+          - { label: "Blogger/Website Link", name: "socialWebsite", widget: "string", required: false }
 
   - name: "testimony"
     label: "My Testimony (Timeline)"

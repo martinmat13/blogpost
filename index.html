@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Soft, elegant fonts: Lora for headings, Nunito for readability -->
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -27,7 +26,6 @@
         }
         .serif { font-family: 'Lora', serif; }
         
-        /* Vibrant, multi-toned watercolor background effect */
         .hero-wash {
             background: radial-gradient(circle at 10% 20%, #fad2e1 0%, transparent 50%),
                         radial-gradient(circle at 90% 80%, #dbe7e4 0%, transparent 50%),
@@ -35,24 +33,17 @@
             background-color: var(--pearl);
         }
 
-        /* Animations */
         .story-card { transition: all 0.4s ease; }
-        .story-card:hover { 
-            transform: translateY(-6px); 
-            box-shadow: 0 15px 35px rgba(157, 125, 138, 0.25); 
-        }
+        .story-card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(157, 125, 138, 0.25); }
         .fade-in { animation: fade-in 0.6s ease-out both; }
-        @keyframes fade-in { 
-            from { opacity: 0; transform: translateY(15px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        .toast { animation: toast-in .4s cubic-bezier(0.16, 1, 0.3, 1) both; }
-        @keyframes toast-in { 
-            from { opacity: 0; transform: translate(-50%, 20px) scale(0.95); } 
-            to { opacity: 1; transform: translate(-50%, 0) scale(1); } 
-        }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .modal-enter { animation: modal-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        @keyframes modal-in { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
-        /* Custom Scrollbar */
+        .toast { animation: toast-in .4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 20px) scale(0.95); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--pearl); }
         ::-webkit-scrollbar-thumb { background: var(--plum-border); border-radius: 10px; }
@@ -61,11 +52,9 @@
 </head>
 <body class="min-h-screen relative overflow-x-hidden selection:bg-[#fad2e1] selection:text-[#4a333d]">
     
-    <!-- Header with dark border highlight -->
     <header class="fixed top-0 w-full z-20 bg-white/85 backdrop-blur-md border-b-2 border-[#9d7d8a]">
         <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
             <button id="home-button" class="flex items-center gap-3 text-left group" aria-label="Go to the homepage">
-                <!-- Colorful Monogram -->
                 <div class="grid place-items-center w-10 h-10 rounded-full bg-gradient-to-br from-[#fad2e1] to-[#fcece0] border-2 border-[#9d7d8a] group-hover:scale-105 transition duration-300 shadow-sm">
                     <span class="serif text-xl italic text-[#b05c75] font-bold">H</span>
                 </div>
@@ -75,13 +64,13 @@
                 </span>
             </button>
             <div class="flex items-center gap-3">
-                <a href="#about" class="text-sm font-bold text-[#7a666e] hover:text-[#b05c75] transition">About the Journal</a>
+                <!-- Button triggers the About Modal overlay -->
+                <button onclick="openAboutModal()" class="text-sm font-bold text-[#7a666e] hover:text-[#b05c75] transition border-2 border-transparent hover:border-[#9d7d8a] px-4 py-2 rounded-full bg-white shadow-sm">About Blessy Mary</button>
             </div>
         </div>
     </header>
 
     <main class="pt-20">
-        <!-- Colorful Hero Section -->
         <section class="hero-wash relative overflow-hidden border-b-2 border-[#9d7d8a]">
             <div class="max-w-6xl mx-auto px-5 py-16 md:py-28 grid lg:grid-cols-[1.1fr_.9fr] gap-12 items-center">
                 <div class="fade-in z-10">
@@ -97,20 +86,17 @@
                         </a>
                     </div>
                 </div>
-                <!-- Floating Verse Card -->
                 <div class="relative hidden lg:block fade-in z-10" style="animation-delay:.15s">
                     <div class="bg-white/70 backdrop-blur-md rounded-[2rem] p-8 md:p-10 relative border-2 border-[#9d7d8a] shadow-xl rotate-2 group hover:rotate-0 transition duration-500">
                         <span class="text-[#fad2e1] text-6xl serif absolute top-4 left-6">"</span>
                         <p id="hero-verse" class="serif text-3xl leading-tight mt-6 text-[#4a333d] italic relative z-10"></p>
                         <p id="hero-reference" class="text-sm font-extrabold tracking-widest uppercase text-[#b05c75] mt-8 text-right"></p>
                     </div>
-                    <!-- Delicate accent element -->
                     <div class="absolute -bottom-6 -left-4 bg-[#fcece0] border-2 border-[#9d7d8a] px-5 py-3 rounded-full text-sm font-bold text-[#b05c75] shadow-md -rotate-6">You are not walking alone.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Dynamic Stories Section -->
         <section id="stories" class="max-w-6xl mx-auto px-5 py-16 relative z-10">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
                 <div>
@@ -124,25 +110,56 @@
                     </label>
                 </div>
             </div>
-            
-            <!-- Clickable Tabs -->
             <div id="category-nav" class="flex flex-wrap gap-3 mb-10" role="tablist" aria-label="Story categories"></div>
-            
-            <!-- Posts Render Here -->
             <div id="app-view" aria-live="polite"></div>
         </section>
-
-        <!-- About Section -->
-        <section id="about" class="relative mt-12 bg-white border-y-2 border-[#9d7d8a]">
-            <div class="max-w-6xl mx-auto px-5 py-20 grid md:grid-cols-[1fr_1.5fr] gap-12 items-center">
-                <div>
-                    <h2 class="serif text-4xl font-semibold text-[#4a333d] mb-4">A softer place to land.</h2>
-                    <div class="h-[3px] w-16 bg-[#b05c75] rounded-full"></div>
-                </div>
-                <p id="about-bio" class="text-lg font-medium leading-relaxed text-[#5c4a52]"></p>
-            </div>
-        </section>
     </main>
+
+    <!-- BEAUTIFUL ABOUT MODAL OVERLAY -->
+    <div id="about-modal" class="fixed inset-0 z-50 hidden bg-[#4a333d]/60 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="min-h-full flex items-center justify-center">
+            <div class="bg-[#fdfbfb] border-2 border-[#9d7d8a] rounded-[2rem] w-full max-w-5xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative modal-enter">
+                
+                <!-- Close Button -->
+                <button onclick="closeAboutModal()" class="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white border-2 border-[#9d7d8a] flex items-center justify-center text-[#7a666e] hover:bg-[#fad2e1] hover:text-[#b05c75] transition shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <!-- Left Column: Image -->
+                <div class="w-full md:w-2/5 h-64 md:h-auto bg-[#fcece0] relative border-b-2 md:border-b-0 md:border-r-2 border-[#9d7d8a]">
+                    <img id="about-image" src="" alt="Blessy Mary" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+
+                <!-- Right Column: Info & Connect -->
+                <div class="w-full md:w-3/5 p-8 md:p-12 relative">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-[#fad2e1] opacity-30 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                    
+                    <span class="inline-block bg-[#fae1e7] text-[#b05c75] px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-extrabold mb-4 border border-[#9d7d8a]">Meet the Author</span>
+                    <h2 class="serif text-4xl font-semibold text-[#4a333d] mb-6">Blessy Mary</h2>
+                    
+                    <p id="about-bio" class="text-base font-medium leading-relaxed text-[#5c4a52] whitespace-pre-wrap mb-8"></p>
+                    
+                    <div class="h-[2px] w-full bg-[#9d7d8a]/20 mb-8"></div>
+                    
+                    <h3 class="text-xs uppercase tracking-widest font-extrabold text-[#7a666e] mb-4">Connect with me</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <a id="link-email" href="#" class="rounded-xl bg-white border-2 border-[#9d7d8a] px-5 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fcece0] shadow-sm transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-[#b05c75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            Email
+                        </a>
+                        <a id="link-instagram" href="#" target="_blank" class="rounded-xl bg-white border-2 border-[#9d7d8a] px-5 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fad2e1] shadow-sm transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-[#b05c75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path></svg>
+                            Instagram
+                        </a>
+                        <a id="link-website" href="#" target="_blank" class="rounded-xl bg-white border-2 border-[#9d7d8a] px-5 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#e2efe8] shadow-sm transition flex items-center gap-2">
+                            <svg class="w-4 h-4 text-[#b05c75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            Blogger
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-[#fcece0] border-t-2 border-[#9d7d8a] px-5 py-10 text-sm text-[#7a666e] font-bold">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-4 items-center">
@@ -154,7 +171,6 @@
         </div>
     </footer>
 
-    <!-- Soft Toast Notification -->
     <div id="toast" class="hidden fixed bottom-8 left-1/2 z-50 bg-[#4a333d] border-2 border-[#9d7d8a] text-[#fad2e1] px-7 py-3.5 text-sm font-bold shadow-xl rounded-full flex items-center gap-2"></div>
 
     <script>
@@ -165,6 +181,24 @@
         const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
         const slug = (category, index) => `${category}-${index}`;
         
+        // Modal Control Functions
+        function openAboutModal() {
+            const modal = document.getElementById('about-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevents background scrolling
+        }
+        function closeAboutModal() {
+            const modal = document.getElementById('about-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Restores scrolling
+        }
+        // Close modal when clicking outside the box
+        document.getElementById('about-modal').addEventListener('click', function(e) {
+            if (e.target === this || e.target.closest('.min-h-full') === this.firstElementChild && !e.target.closest('.bg-\\[\\#fdfbfb\\]')) {
+                closeAboutModal();
+            }
+        });
+
         async function fetchContent(category) { 
             if (cachedData[category]) return cachedData[category]; 
             const response = await fetch(`content/${category}.json`); 
@@ -184,7 +218,6 @@
             }, duration); 
         }
 
-        // Render Colorful Tabs with Bold Borders
         function setCategoryButtons() { 
             $('#category-nav').innerHTML = Object.entries(categories).map(([key, label]) => `
                 <button data-category="${key}" class="px-6 py-2.5 text-sm font-extrabold rounded-full transition-all duration-300 border-2 ${key === currentCategory ? 'bg-[#b05c75] border-[#7a3b50] text-white shadow-md' : 'bg-white border-[#9d7d8a] text-[#7a666e] hover:bg-[#fad2e1] hover:text-[#b05c75]'}">${label}</button>
@@ -193,7 +226,6 @@
 
         function getLikes(id) { return Number(localStorage.getItem(`likes-${id}`) || 0); }
 
-        // Render Story Grid with Colorful Backgrounds
         function renderCards(entries) { 
             if (!entries.length) { 
                 $('#app-view').innerHTML = '<div class="py-16 text-center bg-white rounded-3xl border-2 border-[#9d7d8a]"><p class="text-[#7a666e] font-bold text-lg">More stories are being written. Check back soon.</p></div>'; 
@@ -201,9 +233,7 @@
             } 
             $('#app-view').innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">${entries.map(({ entry, index }, cardIndex) => { 
                 const id = slug(currentCategory, index); 
-                // Colorful, rich pastel backgrounds
                 const tint = entry.style === 'sage' ? 'bg-[#e2efe8]' : entry.style === 'cream' ? 'bg-[#fcf0d9]' : 'bg-[#fae1e7]'; 
-                
                 const titleText = entry.quote || entry.title || "Untitled";
                 const bodyText = entry.body ? `<p class="text-sm font-medium text-[#5c4a52] mt-4 line-clamp-3 leading-relaxed">${escapeHtml(entry.body)}</p>` : '';
                 const tagText = entry.tag || entry.year || entry.date || "Journal Entry";
@@ -212,9 +242,7 @@
                 <article class="story-card ${tint} border-2 border-[#9d7d8a] rounded-[2rem] p-7 min-h-[280px] flex flex-col justify-between fade-in group cursor-pointer shadow-sm" data-open="${index}" style="animation-delay:${cardIndex * .06}s">
                     <div>
                         <div class="flex items-center justify-between gap-3 mb-5">
-                            <span class="text-xs uppercase tracking-widest font-extrabold text-[#b05c75] bg-white/60 px-3 py-1 rounded-full border border-[#9d7d8a]">
-                                ${escapeHtml(tagText)}
-                            </span>
+                            <span class="text-xs uppercase tracking-widest font-extrabold text-[#b05c75] bg-white/60 px-3 py-1 rounded-full border border-[#9d7d8a]">${escapeHtml(tagText)}</span>
                             <span class="text-xs text-[#7a666e] font-bold bg-white/60 px-2 py-1 rounded-full border border-[#9d7d8a]">&hearts; ${getLikes(id)}</span>
                         </div>
                         <h3 class="serif text-2xl font-semibold text-[#4a333d] leading-snug group-hover:text-[#b05c75] transition-colors">${escapeHtml(titleText)}</h3>
@@ -231,9 +259,7 @@
         async function loadCategory(category) { 
             currentCategory = category; 
             setCategoryButtons(); 
-            if (window.location.hash.startsWith('#post-')) {
-                history.pushState("", document.title, window.location.pathname + window.location.search);
-            }
+            if (window.location.hash.startsWith('#post-')) { history.pushState("", document.title, window.location.pathname + window.location.search); }
             try { 
                 const data = await fetchContent(category); 
                 currentEntries = data.entries || []; 
@@ -243,15 +269,11 @@
             } 
         }
 
-        // Open Individual Post View
         function openPost(index) { 
             const entry = currentEntries[index]; 
             if (!entry) return; 
-            
             const id = slug(currentCategory, index); 
             window.location.hash = `post-${id}`;
-            const comments = JSON.parse(localStorage.getItem(`comments-${id}`) || '[]'); 
-            
             const titleText = entry.quote || entry.title || "Untitled";
             const bodyText = entry.body ? `<div class="mt-8 text-lg md:text-xl font-medium leading-loose text-[#4a333d] whitespace-pre-wrap">${escapeHtml(entry.body)}</div>` : '';
             const tagText = entry.tag || entry.year || entry.date || "Journal Entry";
@@ -259,75 +281,49 @@
             $('#app-view').innerHTML = `
                 <button id="back-button" class="mb-8 inline-flex items-center gap-2 text-sm font-extrabold text-[#7a666e] hover:text-[#b05c75] transition bg-white px-4 py-2 rounded-full border-2 border-[#9d7d8a] shadow-sm">&larr; Back to stories</button>
                 <article class="max-w-3xl mx-auto fade-in">
-                    
-                    <span class="inline-block bg-[#fad2e1] text-[#b05c75] px-4 py-1.5 rounded-full text-xs uppercase tracking-widest font-extrabold mb-5 border-2 border-[#9d7d8a]">
-                        ${escapeHtml(tagText)}
-                    </span>
-                    
+                    <span class="inline-block bg-[#fad2e1] text-[#b05c75] px-4 py-1.5 rounded-full text-xs uppercase tracking-widest font-extrabold mb-5 border-2 border-[#9d7d8a]">${escapeHtml(tagText)}</span>
                     <h2 class="serif text-4xl md:text-5xl font-semibold text-[#4a333d] leading-tight">${escapeHtml(titleText)}</h2>
                     ${bodyText}
-                    
                     <p class="mt-8 text-sm uppercase tracking-widest text-[#7a666e] font-extrabold bg-[#fcece0] inline-block px-4 py-2 rounded-lg border-2 border-[#9d7d8a]">${escapeHtml(entry.attribution || entry.readTime || '')}</p>
                     
                     <div class="border-y-2 border-[#9d7d8a] my-12 py-6 flex flex-wrap gap-3">
                         <button id="like-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fae1e7] hover:text-[#b05c75] shadow-sm transition flex items-center gap-2">
                             <span class="text-xl leading-none text-[#b05c75]">&hearts;</span> <span id="like-count">${getLikes(id)}</span> Likes
                         </button>
-                        <button id="copy-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#e2efe8] shadow-sm transition">
-                            Copy Link
-                        </button>
-                        <button id="share-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fcf0d9] shadow-sm transition">
-                            Share Story
-                        </button>
+                        <button id="copy-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#e2efe8] shadow-sm transition">Copy Link</button>
+                        <button id="share-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fcf0d9] shadow-sm transition">Share Story</button>
                     </div>
 
                     <section class="bg-[#fdfbfb] p-8 md:p-10 rounded-[2rem] border-2 border-[#9d7d8a] shadow-md relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-[#fad2e1] opacity-40 rounded-full blur-2xl -mr-10 -mt-10"></div>
                         <h3 class="serif text-2xl font-semibold text-[#4a333d] mb-2 relative z-10">Leave a little kindness</h3>
-                        <p class="text-sm font-bold text-[#7a666e] mb-8 relative z-10">Your words mean more than you know.</p>
-                        <form id="comment-form" class="flex flex-col sm:flex-row gap-3 relative z-10">
-                            <label class="flex-1">
-                                <span class="sr-only">Your comment</span>
-                                <input id="comment-input" required maxlength="240" placeholder="Share a thought..." class="w-full rounded-full border-2 border-[#9d7d8a] bg-white px-6 py-3.5 outline-none focus:border-[#b05c75] focus:ring-2 focus:ring-[#fad2e1] transition font-medium text-[#4a333d]">
-                            </label>
-                            <button class="rounded-full bg-[#b05c75] text-white px-8 py-3.5 font-bold hover:bg-[#964a60] border-2 border-[#7a3b50] shadow-md transition">Post</button>
-                        </form>
-                        <div id="comments-list" class="mt-10 space-y-4 relative z-10">
-                            ${comments.map(comment => `<div class="rounded-2xl bg-white border-2 border-[#9d7d8a]/50 p-5 text-sm font-medium text-[#5c4a52] leading-relaxed">${escapeHtml(comment)}</div>`).join('') || '<p class="text-sm font-bold text-[#9d7d8a] italic">Be the first to leave a kind word.</p>'}
-                        </div>
+                        <p class="text-sm font-bold text-[#7a666e] mb-8 relative z-10">Sign in with GitHub to share your thoughts publicly.</p>
+                        <div id="giscus-container" class="relative z-10"></div>
                     </section>
                 </article>`; 
 
+            const script = document.createElement("script");
+            script.src = "https://giscus.app/client.js";
+            script.setAttribute("data-repo", "YOUR_GITHUB_USERNAME/YOUR_REPO_NAME"); 
+            script.setAttribute("data-repo-id", "YOUR_REPO_ID");                     
+            script.setAttribute("data-category", "General");                         
+            script.setAttribute("data-category-id", "YOUR_CATEGORY_ID");             
+            script.setAttribute("data-mapping", "specific");
+            script.setAttribute("data-term", id); 
+            script.setAttribute("data-strict", "0");
+            script.setAttribute("data-reactions-enabled", "1");
+            script.setAttribute("data-emit-metadata", "0");
+            script.setAttribute("data-input-position", "bottom");
+            script.setAttribute("data-theme", "light");
+            script.setAttribute("data-lang", "en");
+            script.setAttribute("crossorigin", "anonymous");
+            script.async = true;
+            document.getElementById("giscus-container").appendChild(script);
+
             $('#back-button').onclick = () => loadCategory(currentCategory); 
-            
-            $('#like-button').onclick = () => { 
-                const next = getLikes(id) + 1; 
-                localStorage.setItem(`likes-${id}`, next); 
-                $('#like-count').textContent = next; 
-                showToast('<span class="text-[#fad2e1] text-lg leading-none">&hearts;</span> Thanks for sharing the love.'); 
-            }; 
-            
-            $('#comment-form').onsubmit = event => { 
-                event.preventDefault(); 
-                const value = $('#comment-input').value.trim(); 
-                if (!value) return; 
-                comments.push(value); 
-                localStorage.setItem(`comments-${id}`, JSON.stringify(comments)); 
-                openPost(index); 
-                showToast('Your comment is now part of the story.'); 
-            }; 
-            
+            $('#like-button').onclick = () => { const next = getLikes(id) + 1; localStorage.setItem(`likes-${id}`, next); $('#like-count').textContent = next; showToast('<span class="text-[#fad2e1] text-lg leading-none">&hearts;</span> Thanks for sharing the love.'); }; 
             $('#share-button').onclick = () => navigator.share ? navigator.share({ title: titleText, text: `A story from Held in the Morning`, url: location.href }) : showToast('Your browser does not support native sharing.'); 
-            
-            $('#copy-button').onclick = async () => { 
-                try {
-                    await navigator.clipboard.writeText(location.href); 
-                    showToast('Story link copied to clipboard.'); 
-                } catch (err) {
-                    showToast('Failed to copy link.');
-                }
-            }; 
-            
+            $('#copy-button').onclick = async () => { try { await navigator.clipboard.writeText(location.href); showToast('Story link copied to clipboard.'); } catch (err) { showToast('Failed to copy link.'); } }; 
             window.scrollTo({ top: $('#stories').offsetTop - 100, behavior: 'smooth' }); 
         }
 
@@ -338,47 +334,21 @@
                 if (parts.length >= 2) {
                     const index = Number(parts.pop());
                     const category = parts.join('-');
-                    
                     await fetchContent(category);
                     currentEntries = cachedData[category]?.entries || [];
                     currentCategory = category;
                     setCategoryButtons();
-                    
-                    if (currentEntries[index]) {
-                        openPost(index);
-                        return;
-                    }
+                    if (currentEntries[index]) { openPost(index); return; }
                 }
             }
             await loadCategory('inspirationals');
         }
 
-        $('#category-nav').onclick = event => { 
-            const button = event.target.closest('[data-category]'); 
-            if (button) loadCategory(button.dataset.category); 
-        }; 
-        
-        $('#app-view').onclick = event => { 
-            const article = event.target.closest('article[data-open]'); 
-            if (article) openPost(Number(article.dataset.open)); 
-        }; 
-        
-        $('#search-input').oninput = event => { 
-            const term = event.target.value.toLowerCase(); 
-            renderCards(currentEntries.map((entry, index) => ({ entry, index })).filter(({ entry }) => 
-                `${entry.quote || ''} ${entry.title || ''} ${entry.tag || ''} ${entry.attribution || ''} ${entry.body || ''}`.toLowerCase().includes(term)
-            )); 
-        }; 
-        
-        $('#latest-button').onclick = () => { 
-            if (currentEntries.length) openPost(0); 
-        }; 
-        
-        $('#home-button').onclick = () => { 
-            window.location.hash = ''; 
-            loadCategory('inspirationals'); 
-            window.scrollTo({ top: 0, behavior: 'smooth' }); 
-        }; 
+        $('#category-nav').onclick = event => { const button = event.target.closest('[data-category]'); if (button) loadCategory(button.dataset.category); }; 
+        $('#app-view').onclick = event => { const article = event.target.closest('article[data-open]'); if (article) openPost(Number(article.dataset.open)); }; 
+        $('#search-input').oninput = event => { const term = event.target.value.toLowerCase(); renderCards(currentEntries.map((entry, index) => ({ entry, index })).filter(({ entry }) => `${entry.quote || ''} ${entry.title || ''} ${entry.tag || ''} ${entry.attribution || ''} ${entry.body || ''}`.toLowerCase().includes(term))); }; 
+        $('#latest-button').onclick = () => { if (currentEntries.length) openPost(0); }; 
+        $('#home-button').onclick = () => { window.location.hash = ''; loadCategory('inspirationals'); window.scrollTo({ top: 0, behavior: 'smooth' }); }; 
 
         async function init() { 
             try { 
@@ -388,11 +358,19 @@
                 $('#hero-subtext').textContent = site.heroSubtext; 
                 $('#hero-verse').textContent = site.heroVerseText.replace(/^\"|\"$/g, ''); 
                 $('#hero-reference').textContent = site.heroVerseRef; 
+                
+                // Populate Modal Data
                 $('#about-bio').textContent = site.aboutBio; 
+                $('#about-image').src = site.authorImage || '';
+                
+                // Setup Social Links
+                if(site.socialEmail) $('#link-email').href = site.socialEmail; else $('#link-email').style.display = 'none';
+                if(site.socialInstagram) $('#link-instagram').href = site.socialInstagram; else $('#link-instagram').style.display = 'none';
+                if(site.socialWebsite) $('#link-website').href = site.socialWebsite; else $('#link-website').style.display = 'none';
+                
             } catch (error) {} 
             handleRouting();
         } 
-        
         init();
         window.addEventListener('hashchange', handleRouting);
     </script>

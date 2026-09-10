@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Blessy Mary - A story of hope and healing.">
+    <title>About | Held in the Morning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --pearl: #fdfbfb; --rose-rich: #b05c75; --plum-border: #9d7d8a; --text-dark: #4a333d; }
+        body { background-color: var(--pearl); color: var(--text-dark); font-family: 'Nunito', sans-serif; }
+        .serif { font-family: 'Lora', serif; }
+        .fade-in { animation: fade-in 0.6s ease-out both; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="min-h-screen relative selection:bg-[#fad2e1] selection:text-[#4a333d]">
+    
+    <header class="fixed top-0 w-full z-20 bg-white/85 backdrop-blur-md border-b-2 border-[#9d7d8a]">
+        <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+            <a href="index.html" class="flex items-center gap-3 text-left group">
+                <div class="grid place-items-center w-10 h-10 rounded-full bg-gradient-to-br from-[#fad2e1] to-[#fcece0] border-2 border-[#9d7d8a] group-hover:scale-105 transition duration-300 shadow-sm">
+                    <span class="serif text-xl italic text-[#b05c75] font-bold">&larr;</span>
+                </div>
+                <span>
+                    <strong class="serif text-xl tracking-tight text-[#4a333d]">Return to Journal</strong>
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 px-5 max-w-4xl mx-auto fade-in">
+        <div class="text-center mb-16">
+            <span class="inline-block bg-[#fad2e1] text-[#b05c75] px-4 py-1.5 rounded-full text-xs uppercase tracking-widest font-extrabold mb-5 border-2 border-[#9d7d8a]">
+                Meet the Author
+            </span>
+            <h1 class="serif text-5xl md:text-6xl font-semibold text-[#4a333d] mb-6">Blessy Mary</h1>
+            <div class="h-[3px] w-20 bg-[#b05c75] mx-auto rounded-full"></div>
+        </div>
+
+        <div class="bg-white rounded-[2rem] border-2 border-[#9d7d8a] shadow-md p-8 md:p-12">
+            <h2 class="serif text-3xl font-semibold text-[#4a333d] mb-6">A test that became a testimony.</h2>
+            <p id="about-bio" class="text-lg md:text-xl font-medium leading-loose text-[#5c4a52] whitespace-pre-wrap"></p>
+            
+            <div class="mt-12 pt-8 border-t-2 border-[#9d7d8a]/30 grid sm:grid-cols-3 gap-6 text-center">
+                <div class="bg-[#fcece0] p-6 rounded-2xl border-2 border-[#9d7d8a]">
+                    <p id="stat-a-val" class="serif text-3xl font-bold text-[#b05c75]"></p>
+                    <p id="stat-a-lbl" class="text-xs uppercase tracking-widest font-extrabold text-[#7a666e] mt-2"></p>
+                </div>
+                <div class="bg-[#fae1e7] p-6 rounded-2xl border-2 border-[#9d7d8a]">
+                    <p id="stat-b-val" class="serif text-3xl font-bold text-[#b05c75]"></p>
+                    <p id="stat-b-lbl" class="text-xs uppercase tracking-widest font-extrabold text-[#7a666e] mt-2"></p>
+                </div>
+                <div class="bg-[#e2efe8] p-6 rounded-2xl border-2 border-[#9d7d8a]">
+                    <p id="stat-c-val" class="serif text-3xl font-bold text-[#b05c75]"></p>
+                    <p id="stat-c-lbl" class="text-xs uppercase tracking-widest font-extrabold text-[#7a666e] mt-2"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#fcece0] border-t-2 border-[#9d7d8a] px-5 py-10 text-sm text-[#7a666e] font-bold">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-4 items-center">
+            <span>&copy; 2026 Held in the Morning</span>
+            <div class="flex items-center gap-2">
+                <span class="text-[#b05c75]">&hearts;</span>
+                <span>Made for the waiting, the healing, and the hopeful.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        async function loadAboutData() {
+            try {
+                const response = await fetch('content/site.json');
+                const site = await response.json();
+                document.getElementById('about-bio').textContent = site.aboutBio;
+                
+                document.getElementById('stat-a-val').textContent = site.statAValue;
+                document.getElementById('stat-a-lbl').textContent = site.statALabel;
+                
+                document.getElementById('stat-b-val').textContent = site.statBValue;
+                document.getElementById('stat-b-lbl').textContent = site.statBLabel;
+                
+                document.getElementById('stat-c-val').textContent = site.statCValue;
+                document.getElementById('stat-c-lbl').textContent = site.statCLabel;
+            } catch (error) {
+                console.error('Error loading bio data');
+            }
+        }
+        loadAboutData();
+    </script>
+</body>
+</html>
