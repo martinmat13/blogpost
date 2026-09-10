@@ -21,42 +21,368 @@
         .story-card:focus-within { outline: 3px solid rgba(231,119,93,.45); outline-offset: 3px; }
         .fade-in { animation: fade-in .5s ease both; }
         @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .toast { animation: toast-in .25s ease both; }
-        @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        .toast { animation: toast-in .4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
     </style>
 </head>
 <body class="min-h-screen">
     <header class="border-b border-[#dfe7e1] bg-[#fbfaf6]/90 sticky top-0 z-20 backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
-            <button id="home-button" class="flex items-center gap-3 text-left" aria-label="Go to the homepage"><span class="grid place-items-center w-10 h-10 rounded-full bg-[#263b38] text-[#f7e7b6] text-xl serif">H</span><span><strong class="serif text-xl tracking-tight">Held in the Morning</strong><span class="block text-xs text-[#6c7d78]">a journal of hope</span></span></button>
-            <div class="flex items-center gap-3"><a href="#about" class="hidden sm:block text-sm font-semibold text-[#6c7d78] hover:text-[#263b38]">About</a><a href="#join" class="rounded-full bg-[#e7775d] px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#d8674e] transition">Join the circle</a></div>
+            <button id="home-button" class="flex items-center gap-3 text-left" aria-label="Go to the homepage">
+                <span class="grid place-items-center w-10 h-10 rounded-full bg-[#263b38] text-[#f7e7b6] text-xl serif">H</span>
+                <span><strong class="serif text-xl tracking-tight">Held in the Morning</strong><span class="block text-xs text-[#6c7d78]">a journal of hope</span></span>
+            </button>
+            <div class="flex items-center gap-3">
+                <a href="#about" class="hidden sm:block text-sm font-semibold text-[#6c7d78] hover:text-[#263b38]">About</a>
+                <a href="#join" class="rounded-full bg-[#e7775d] px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#d8674e] transition">Join the circle</a>
+            </div>
         </div>
     </header>
 
     <main>
-        <section class="hero-wash grain overflow-hidden"><div class="max-w-6xl mx-auto px-5 py-16 md:py-24 grid lg:grid-cols-[1.1fr_.9fr] gap-12 items-center"><div class="fade-in"><p id="hero-eyebrow" class="uppercase tracking-[.18em] text-xs font-bold text-[#b85b49] mb-5">Grace found me in the hospital room</p><h1 id="hero-headline" class="serif text-5xl md:text-7xl leading-[.98] max-w-3xl">Finding light in the storm, one healed day at a time</h1><p id="hero-subtext" class="mt-6 text-lg leading-8 text-[#526761] max-w-xl">A journal of sickness, surrender, and the slow, faithful love of Christ, written for anyone still waiting on their own miracle.</p><div class="mt-8 flex flex-wrap gap-3"><button id="latest-button" class="rounded-full bg-[#263b38] text-white px-5 py-3 font-bold hover:bg-[#38534e] transition">Read the latest story <span aria-hidden="true">&rarr;</span></button><a href="#stories" class="rounded-full border border-[#9db6ac] px-5 py-3 font-bold text-[#263b38] hover:bg-white/60 transition">Explore the journal</a></div></div><div class="relative hidden md:block fade-in" style="animation-delay:.12s"><div class="rounded-[2rem] bg-[#263b38] p-8 text-[#fbfaf6] rotate-2 shadow-2xl max-w-sm ml-auto"><span class="text-[#f7e7b6] text-4xl">“</span><p id="hero-verse" class="serif text-3xl leading-tight mt-2">Weeping may endure for a night, but joy cometh in the morning.</p><p id="hero-reference" class="text-sm text-[#b6cdc3] mt-6">Psalm 30:5</p></div><div class="absolute -bottom-5 left-8 bg-[#f7e7b6] px-4 py-3 rounded-xl text-sm font-bold rotate-[-5deg]">You are not walking alone.</div></div></div></section>
+        <!-- Hero Section -->
+        <section class="hero-wash grain overflow-hidden">
+            <div class="max-w-6xl mx-auto px-5 py-16 md:py-24 grid lg:grid-cols-[1.1fr_.9fr] gap-12 items-center">
+                <div class="fade-in">
+                    <p id="hero-eyebrow" class="uppercase tracking-[.18em] text-xs font-bold text-[#b85b49] mb-5"></p>
+                    <h1 id="hero-headline" class="serif text-5xl md:text-7xl leading-[.98] max-w-3xl"></h1>
+                    <p id="hero-subtext" class="mt-6 text-lg leading-8 text-[#526761] max-w-xl"></p>
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <button id="latest-button" class="rounded-full bg-[#263b38] text-white px-5 py-3 font-bold hover:bg-[#38534e] transition">Read the latest story <span aria-hidden="true">&rarr;</span></button>
+                        <a href="#stories" class="rounded-full border border-[#9db6ac] px-5 py-3 font-bold text-[#263b38] hover:bg-white/60 transition">Explore the journal</a>
+                    </div>
+                </div>
+                <div class="relative hidden md:block fade-in" style="animation-delay:.12s">
+                    <div class="rounded-[2rem] bg-[#263b38] p-8 text-[#fbfaf6] rotate-2 shadow-2xl max-w-sm ml-auto">
+                        <span class="text-[#f7e7b6] text-4xl">“</span>
+                        <p id="hero-verse" class="serif text-3xl leading-tight mt-2"></p>
+                        <p id="hero-reference" class="text-sm text-[#b6cdc3] mt-6"></p>
+                    </div>
+                    <div class="absolute -bottom-5 left-8 bg-[#f7e7b6] px-4 py-3 rounded-xl text-sm font-bold rotate-[-5deg]">You are not walking alone.</div>
+                </div>
+            </div>
+        </section>
 
-        <section id="stories" class="max-w-6xl mx-auto px-5 py-16"><div class="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8"><div><p class="text-xs uppercase tracking-[.18em] font-bold text-[#e7775d]">The journal</p><h2 class="serif text-4xl mt-2">Stories for the in-between</h2></div><div class="flex gap-3 w-full md:w-auto"><label class="relative flex-1 md:w-64"><span class="sr-only">Search stories</span><input id="search-input" type="search" placeholder="Search stories..." class="w-full rounded-full border border-[#d2dfd8] bg-white px-4 py-2.5 text-sm outline-none focus:border-[#e7775d]"></label><button id="random-button" title="Open a random story" class="rounded-full border border-[#d2dfd8] bg-white px-4 py-2.5 text-sm font-bold hover:bg-[#eef5f0]">Surprise me</button></div></div><div id="category-nav" class="flex flex-wrap gap-2 mb-8" role="tablist" aria-label="Story categories"></div><div id="app-view" aria-live="polite"></div></section>
+        <!-- Dynamic Stories Section -->
+        <section id="stories" class="max-w-6xl mx-auto px-5 py-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8">
+                <div>
+                    <p class="text-xs uppercase tracking-[.18em] font-bold text-[#e7775d]">The journal</p>
+                    <h2 class="serif text-4xl mt-2">Stories for the in-between</h2>
+                </div>
+                <div class="flex gap-3 w-full md:w-auto">
+                    <label class="relative flex-1 md:w-64">
+                        <span class="sr-only">Search stories</span>
+                        <input id="search-input" type="search" placeholder="Search stories..." class="w-full rounded-full border border-[#d2dfd8] bg-white px-4 py-2.5 text-sm outline-none focus:border-[#e7775d]">
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Clickable Tabs -->
+            <div id="category-nav" class="flex flex-wrap gap-2 mb-8" role="tablist" aria-label="Story categories"></div>
+            
+            <!-- Posts Render Here -->
+            <div id="app-view" aria-live="polite"></div>
+        </section>
 
-        <section id="about" class="border-y border-[#dfe7e1] bg-[#eef5f0]"><div class="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-[.8fr_1.2fr] gap-10 items-center"><p class="serif text-4xl">A softer place to land.</p><p id="about-bio" class="text-lg leading-8 text-[#526761] max-w-2xl"></p></div></section>
-        <section id="join" class="max-w-6xl mx-auto px-5 py-16"><div class="rounded-[2rem] bg-[#263b38] text-white p-8 md:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center"><div><p class="text-xs uppercase tracking-[.18em] font-bold text-[#f7e7b6]">Stay close</p><h2 class="serif text-4xl mt-2">A little hope, delivered.</h2><p class="text-[#c4d8cf] mt-3 max-w-xl">Join the circle for new stories, quiet prompts, and an occasional note from my corner of the world.</p></div><form id="subscribe-form" class="flex flex-col sm:flex-row gap-2"><label><span class="sr-only">Your email address</span><input id="email-input" type="email" required placeholder="you@example.com" class="rounded-full px-4 py-3 text-[#263b38] min-w-0 w-full sm:w-64 outline-none"></label><button class="rounded-full bg-[#e7775d] px-5 py-3 font-bold hover:bg-[#d8674e] transition">Join free</button></form></div></section>
+        <!-- About Section -->
+        <section id="about" class="border-y border-[#dfe7e1] bg-[#eef5f0]">
+            <div class="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-[.8fr_1.2fr] gap-10 items-center">
+                <p class="serif text-4xl">A softer place to land.</p>
+                <p id="about-bio" class="text-lg leading-8 text-[#526761] max-w-2xl"></p>
+            </div>
+        </section>
+
+        <!-- Subscription Section -->
+        <section id="join" class="max-w-6xl mx-auto px-5 py-16">
+            <div class="rounded-[2rem] bg-[#263b38] text-white p-8 md:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center">
+                <div>
+                    <p class="text-xs uppercase tracking-[.18em] font-bold text-[#f7e7b6]">Stay close</p>
+                    <h2 class="serif text-4xl mt-2">A little hope, delivered.</h2>
+                    <p class="text-[#c4d8cf] mt-3 max-w-xl">Join the circle for new stories, quiet prompts, and an occasional note from my corner of the world.</p>
+                </div>
+                <form id="subscribe-form" class="flex flex-col sm:flex-row gap-2">
+                    <label>
+                        <span class="sr-only">Your email address</span>
+                        <input id="email-input" type="email" required placeholder="you@example.com" class="rounded-full px-4 py-3 text-[#263b38] min-w-0 w-full sm:w-64 outline-none">
+                    </label>
+                    <button class="rounded-full bg-[#e7775d] px-5 py-3 font-bold hover:bg-[#d8674e] transition">Join free</button>
+                </form>
+            </div>
+        </section>
     </main>
-    <footer class="border-t border-[#dfe7e1] px-5 py-8 text-sm text-[#6c7d78]"><div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between gap-3"><span>&copy; 2026 Held in the Morning</span><span>Made for the waiting, healing, and hopeful.</span></div></footer><div id="toast" class="hidden fixed bottom-6 left-1/2 z-30 rounded-full bg-[#263b38] text-white px-5 py-3 text-sm font-semibold shadow-xl"></div>
+
+    <footer class="border-t border-[#dfe7e1] px-5 py-8 text-sm text-[#6c7d78]">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between gap-3">
+            <span>&copy; 2026 Held in the Morning</span>
+            <span>Made for the waiting, healing, and hopeful.</span>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden fixed bottom-6 left-1/2 z-30 rounded-full bg-[#263b38] text-white px-6 py-4 text-sm font-semibold shadow-2xl border border-[#38534e]"></div>
 
     <script>
         const categories = { inspirationals: 'Inspirationals', beLikeJesus: 'Be like Jesus', quietTime: 'Quiet time', testimony: 'Testimonies' };
         let cachedData = {}, currentCategory = 'inspirationals', currentEntries = [];
         const $ = selector => document.querySelector(selector);
+        
         const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
         const slug = (category, index) => `${category}-${index}`;
-        async function fetchContent(category) { if (cachedData[category]) return cachedData[category]; const response = await fetch(`content/${category}.json`); if (!response.ok) throw new Error('Unable to load stories'); cachedData[category] = await response.json(); return cachedData[category]; }
-        function showToast(message) { const toast = $('#toast'); toast.textContent = message; toast.className = 'toast fixed bottom-6 left-1/2 z-30 rounded-full bg-[#263b38] text-white px-5 py-3 text-sm font-semibold shadow-xl'; setTimeout(() => toast.classList.add('hidden'), 2800); }
-        function setCategoryButtons() { $('#category-nav').innerHTML = Object.entries(categories).map(([key, label]) => `<button data-category="${key}" class="category-btn rounded-full px-4 py-2 text-sm font-bold transition ${key === currentCategory ? 'bg-[#263b38] text-white' : 'bg-white border border-[#d2dfd8] text-[#526761] hover:bg-[#eef5f0]'}">${label}</button>`).join(''); }
+        
+        async function fetchContent(category) { 
+            if (cachedData[category]) return cachedData[category]; 
+            const response = await fetch(`content/${category}.json`); 
+            if (!response.ok) return { entries: [] }; // Return empty if file missing
+            cachedData[category] = await response.json(); 
+            return cachedData[category]; 
+        }
+
+        // Beautiful Toast Notification
+        function showToast(message, duration = 3500) { 
+            const toast = $('#toast'); 
+            toast.innerHTML = message; 
+            toast.classList.remove('hidden');
+            toast.classList.add('toast');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('toast');
+            }, duration); 
+        }
+
+        // Render Tabs
+        function setCategoryButtons() { 
+            $('#category-nav').innerHTML = Object.entries(categories).map(([key, label]) => `
+                <button data-category="${key}" class="category-btn rounded-full px-5 py-2.5 text-sm font-bold transition ${key === currentCategory ? 'bg-[#263b38] text-white shadow-md' : 'bg-white border border-[#d2dfd8] text-[#526761] hover:bg-[#eef5f0] hover:text-[#263b38]'}">${label}</button>
+            `).join(''); 
+        }
+
         function getLikes(id) { return Number(localStorage.getItem(`likes-${id}`) || 0); }
-        function renderCards(entries) { if (!entries.length) { $('#app-view').innerHTML = '<p class="py-16 text-center text-[#6c7d78]">No stories match that search yet.</p>'; return; } $('#app-view').innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">${entries.map(({ entry, index }, cardIndex) => { const id = slug(currentCategory, index); const tint = entry.style === 'sage' ? 'bg-[#e8f2ed]' : entry.style === 'cream' ? 'bg-[#fbf1d8]' : 'bg-[#fbe7e0]'; return `<article class="story-card ${tint} rounded-[1.5rem] p-6 min-h-[270px] flex flex-col justify-between fade-in" style="animation-delay:${cardIndex * .06}s"><div><div class="flex items-center justify-between gap-3"><span class="text-xs uppercase tracking-[.14em] font-bold text-[#b85b49]">${escapeHtml(entry.tag)}</span><span class="text-xs text-[#6c7d78]">${getLikes(id)} likes</span></div><button data-open="${index}" class="text-left w-full mt-7"><h3 class="serif text-2xl leading-snug hover:text-[#b85b49] transition">${escapeHtml(entry.quote)}</h3></button></div><div class="flex items-center justify-between mt-7"><span class="text-sm font-semibold text-[#6c7d78]">${escapeHtml(entry.attribution)}</span><button data-open="${index}" class="text-sm font-bold text-[#263b38] hover:text-[#b85b49]">Open story &rarr;</button></div></article>`; }).join('')}</div>`; }
-        async function loadCategory(category) { currentCategory = category; setCategoryButtons(); try { const data = await fetchContent(category); currentEntries = data.entries || []; renderCards(currentEntries.map((entry, index) => ({ entry, index }))); } catch (error) { $('#app-view').innerHTML = '<p class="py-16 text-center text-[#b85b49]">Stories are taking a quiet moment. Please try again.</p>'; } }
-        function openPost(index) { const entry = currentEntries[index]; if (!entry) return; const id = slug(currentCategory, index); const comments = JSON.parse(localStorage.getItem(`comments-${id}`) || '[]'); $('#app-view').innerHTML = `<button id="back-button" class="mb-7 text-sm font-bold text-[#6c7d78] hover:text-[#263b38]">&larr; Back to stories</button><article class="max-w-3xl mx-auto"><span class="inline-block rounded-full bg-[#f7e7b6] px-3 py-1 text-xs uppercase tracking-[.14em] font-bold text-[#705e2d]">${escapeHtml(entry.tag)}</span><h2 class="serif text-4xl md:text-6xl leading-tight mt-5">${escapeHtml(entry.quote)}</h2><p class="mt-5 text-[#6c7d78] font-semibold">${escapeHtml(entry.attribution)}</p><div class="border-y border-[#dfe7e1] my-10 py-4 flex flex-wrap gap-3"><button id="like-button" class="rounded-full bg-white border border-[#d2dfd8] px-4 py-2 text-sm font-bold hover:bg-[#eef5f0]">&#9829; <span id="like-count">${getLikes(id)}</span> Like</button><button id="share-button" class="rounded-full bg-white border border-[#d2dfd8] px-4 py-2 text-sm font-bold hover:bg-[#eef5f0]">Share story</button><button id="copy-button" class="rounded-full bg-white border border-[#d2dfd8] px-4 py-2 text-sm font-bold hover:bg-[#eef5f0]">Copy link</button></div><section><h3 class="serif text-3xl">Leave a little kindness</h3><form id="comment-form" class="mt-4 flex flex-col sm:flex-row gap-2"><label class="flex-1"><span class="sr-only">Your comment</span><input id="comment-input" required maxlength="240" placeholder="Share a thought..." class="w-full rounded-full border border-[#d2dfd8] bg-white px-4 py-3 outline-none focus:border-[#e7775d]"></label><button class="rounded-full bg-[#263b38] px-5 py-3 font-bold text-white">Post comment</button></form><div id="comments-list" class="mt-6 space-y-3">${comments.map(comment => `<p class="rounded-2xl bg-[#eef5f0] p-4 text-sm">${escapeHtml(comment)}</p>`).join('') || '<p class="text-sm text-[#6c7d78]">Be the first to leave a kind word.</p>'}</div></section></article>`; $('#back-button').onclick = () => loadCategory(currentCategory); $('#like-button').onclick = () => { const next = getLikes(id) + 1; localStorage.setItem(`likes-${id}`, next); $('#like-count').textContent = next; showToast('Thanks for sharing the love.'); }; $('#comment-form').onsubmit = event => { event.preventDefault(); const value = $('#comment-input').value.trim(); if (!value) return; comments.push(value); localStorage.setItem(`comments-${id}`, JSON.stringify(comments)); openPost(index); showToast('Your comment is now part of the story.'); }; $('#share-button').onclick = () => navigator.share ? navigator.share({ title: entry.quote, text: `A story from Held in the Morning: ${entry.quote}`, url: location.href }) : showToast('Your browser does not support native sharing yet.'); $('#copy-button').onclick = async () => { await navigator.clipboard.writeText(location.href); showToast('Story link copied.'); }; window.scrollTo({ top: $('#stories').offsetTop - 80, behavior: 'smooth' }); }
-        $('#category-nav').onclick = event => { const button = event.target.closest('[data-category]'); if (button) loadCategory(button.dataset.category); }; $('#app-view').onclick = event => { const button = event.target.closest('[data-open]'); if (button) openPost(Number(button.dataset.open)); }; $('#search-input').oninput = event => { const term = event.target.value.toLowerCase(); renderCards(currentEntries.map((entry, index) => ({ entry, index })).filter(({ entry }) => `${entry.quote} ${entry.tag} ${entry.attribution}`.toLowerCase().includes(term))); }; $('#random-button').onclick = () => { if (currentEntries.length) openPost(Math.floor(Math.random() * currentEntries.length)); }; $('#latest-button').onclick = () => { if (currentEntries.length) openPost(0); }; $('#home-button').onclick = () => { window.location.hash = ''; loadCategory('inspirationals'); window.scrollTo({ top: 0, behavior: 'smooth' }); }; $('#subscribe-form').onsubmit = event => { event.preventDefault(); localStorage.setItem('subscriber-email', $('#email-input').value); $('#email-input').value = ''; showToast('You are on the list. See you in the next story.'); }; async function init() { try { const site = await (await fetch('content/site.json')).json(); $('#hero-eyebrow').textContent = site.heroEyebrow; $('#hero-headline').textContent = site.heroHeadline; $('#hero-subtext').textContent = site.heroSubtext; $('#hero-verse').textContent = site.heroVerseText.replace(/^\"|\"$/g, ''); $('#hero-reference').textContent = site.heroVerseRef; $('#about-bio').textContent = site.aboutBio; } catch (error) {} await loadCategory('inspirationals'); } init();
+
+        // Render Story Grid
+        function renderCards(entries) { 
+            if (!entries.length) { 
+                $('#app-view').innerHTML = '<p class="py-16 text-center text-[#6c7d78] text-lg">No stories match that search yet.</p>'; 
+                return; 
+            } 
+            $('#app-view').innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">${entries.map(({ entry, index }, cardIndex) => { 
+                const id = slug(currentCategory, index); 
+                const tint = entry.style === 'sage' ? 'bg-[#e8f2ed]' : entry.style === 'cream' ? 'bg-[#fbf1d8]' : 'bg-[#fbe7e0]'; 
+                // Determine Title & Body based on the JSON structure variations
+                const titleText = entry.quote || entry.title || "Untitled";
+                const bodyText = entry.body ? `<p class="text-sm text-[#526761] mt-3 line-clamp-3">${escapeHtml(entry.body)}</p>` : '';
+                const tagText = entry.tag || entry.year || entry.date || "Story";
+                
+                return `
+                <article class="story-card ${tint} rounded-[1.5rem] p-6 min-h-[270px] flex flex-col justify-between fade-in" style="animation-delay:${cardIndex * .06}s">
+                    <div>
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-xs uppercase tracking-[.14em] font-bold text-[#b85b49]">${escapeHtml(tagText)}</span>
+                            <span class="text-xs text-[#6c7d78] font-medium">${getLikes(id)} likes</span>
+                        </div>
+                        <button data-open="${index}" class="text-left w-full mt-6">
+                            <h3 class="serif text-2xl leading-snug hover:text-[#b85b49] transition">${escapeHtml(titleText)}</h3>
+                            ${bodyText}
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between mt-7">
+                        <span class="text-sm font-semibold text-[#6c7d78]">${escapeHtml(entry.attribution || entry.readTime || '')}</span>
+                        <button data-open="${index}" class="text-sm font-bold text-[#263b38] hover:text-[#b85b49] flex items-center gap-1">Open <span aria-hidden="true">&rarr;</span></button>
+                    </div>
+                </article>`; 
+            }).join('')}</div>`; 
+        }
+
+        async function loadCategory(category) { 
+            currentCategory = category; 
+            setCategoryButtons(); 
+            // Reset URL hash to category view without post id
+            if (window.location.hash.startsWith('#post-')) {
+                history.pushState("", document.title, window.location.pathname + window.location.search);
+            }
+            try { 
+                const data = await fetchContent(category); 
+                currentEntries = data.entries || []; 
+                renderCards(currentEntries.map((entry, index) => ({ entry, index }))); 
+            } catch (error) { 
+                $('#app-view').innerHTML = '<p class="py-16 text-center text-[#b85b49]">Stories are taking a quiet moment. Please try again.</p>'; 
+            } 
+        }
+
+        // Open Individual Post & Set Deep Link
+        function openPost(index) { 
+            const entry = currentEntries[index]; 
+            if (!entry) return; 
+            
+            const id = slug(currentCategory, index); 
+            // Set URL Hash for deep linking (e.g., #post-inspirationals-2)
+            window.location.hash = `post-${id}`;
+
+            const comments = JSON.parse(localStorage.getItem(`comments-${id}`) || '[]'); 
+            
+            const titleText = entry.quote || entry.title || "Untitled";
+            const bodyText = entry.body ? `<div class="mt-8 text-lg leading-relaxed text-[#526761] whitespace-pre-wrap">${escapeHtml(entry.body)}</div>` : '';
+            const tagText = entry.tag || entry.year || entry.date || "Story";
+
+            $('#app-view').innerHTML = `
+                <button id="back-button" class="mb-8 flex items-center gap-2 text-sm font-bold text-[#6c7d78] hover:text-[#263b38] transition">&larr; Back to stories</button>
+                <article class="max-w-3xl mx-auto fade-in">
+                    <span class="inline-block rounded-full bg-[#f7e7b6] px-4 py-1.5 text-xs uppercase tracking-[.14em] font-bold text-[#705e2d] mb-4">${escapeHtml(tagText)}</span>
+                    <h2 class="serif text-4xl md:text-5xl leading-tight text-[#263b38]">${escapeHtml(titleText)}</h2>
+                    ${bodyText}
+                    <p class="mt-6 text-[#6c7d78] font-semibold">${escapeHtml(entry.attribution || entry.readTime || '')}</p>
+                    
+                    <div class="border-y border-[#dfe7e1] my-12 py-5 flex flex-wrap gap-3">
+                        <button id="like-button" class="rounded-full bg-white border border-[#d2dfd8] px-5 py-2.5 text-sm font-bold text-[#263b38] hover:bg-[#eef5f0] transition flex items-center gap-2">
+                            <span class="text-[#e7775d] text-lg">&hearts;</span> <span id="like-count">${getLikes(id)}</span> Likes
+                        </button>
+                        <button id="copy-button" class="rounded-full bg-white border border-[#d2dfd8] px-5 py-2.5 text-sm font-bold text-[#263b38] hover:bg-[#eef5f0] transition flex items-center gap-2">
+                            Copy Link
+                        </button>
+                        <button id="share-button" class="rounded-full bg-white border border-[#d2dfd8] px-5 py-2.5 text-sm font-bold text-[#263b38] hover:bg-[#eef5f0] transition flex items-center gap-2">
+                            Share Story
+                        </button>
+                    </div>
+
+                    <section class="bg-[#fbfaf6] p-6 sm:p-8 rounded-[2rem] border border-[#dfe7e1]">
+                        <h3 class="serif text-2xl mb-2">Leave a little kindness</h3>
+                        <p class="text-sm text-[#6c7d78] mb-6">Your words mean more than you know.</p>
+                        <form id="comment-form" class="flex flex-col sm:flex-row gap-3">
+                            <label class="flex-1">
+                                <span class="sr-only">Your comment</span>
+                                <input id="comment-input" required maxlength="240" placeholder="Share a thought..." class="w-full rounded-full border border-[#d2dfd8] bg-white px-5 py-3 outline-none focus:border-[#e7775d] transition">
+                            </label>
+                            <button class="rounded-full bg-[#263b38] px-6 py-3 font-bold text-white hover:bg-[#38534e] transition">Post</button>
+                        </form>
+                        <div id="comments-list" class="mt-8 space-y-4">
+                            ${comments.map(comment => `<div class="rounded-2xl bg-white border border-[#dfe7e1] p-5 shadow-sm text-sm text-[#526761] leading-relaxed">${escapeHtml(comment)}</div>`).join('') || '<p class="text-sm text-[#6c7d78] italic">Be the first to leave a kind word.</p>'}
+                        </div>
+                    </section>
+                </article>`; 
+
+            $('#back-button').onclick = () => loadCategory(currentCategory); 
+            
+            $('#like-button').onclick = () => { 
+                const next = getLikes(id) + 1; 
+                localStorage.setItem(`likes-${id}`, next); 
+                $('#like-count').textContent = next; 
+                showToast('Thank you for sharing the love. &hearts;'); 
+            }; 
+            
+            $('#comment-form').onsubmit = event => { 
+                event.preventDefault(); 
+                const value = $('#comment-input').value.trim(); 
+                if (!value) return; 
+                comments.push(value); 
+                localStorage.setItem(`comments-${id}`, JSON.stringify(comments)); 
+                openPost(index); 
+                showToast('Your comment is now part of the story.'); 
+            }; 
+            
+            $('#share-button').onclick = () => navigator.share ? navigator.share({ title: titleText, text: `A story from Held in the Morning`, url: location.href }) : showToast('Your browser does not support native sharing yet.'); 
+            
+            // Deep Link Copying
+            $('#copy-button').onclick = async () => { 
+                try {
+                    await navigator.clipboard.writeText(location.href); 
+                    showToast('Link copied! You can now share this specific story.'); 
+                } catch (err) {
+                    showToast('Failed to copy link. Please copy the URL from your browser.');
+                }
+            }; 
+            
+            window.scrollTo({ top: $('#stories').offsetTop - 80, behavior: 'smooth' }); 
+        }
+
+        // Handle URL Hash for Deep Linking on Page Load
+        async function handleRouting() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#post-')) {
+                // Extracts category and index from something like #post-inspirationals-2
+                const parts = hash.replace('#post-', '').split('-');
+                if (parts.length >= 2) {
+                    const index = Number(parts.pop());
+                    const category = parts.join('-');
+                    
+                    await fetchContent(category);
+                    currentEntries = cachedData[category]?.entries || [];
+                    currentCategory = category;
+                    setCategoryButtons();
+                    
+                    if (currentEntries[index]) {
+                        openPost(index);
+                        return;
+                    }
+                }
+            }
+            // Default load
+            await loadCategory('inspirationals');
+        }
+
+        // Event Listeners
+        $('#category-nav').onclick = event => { 
+            const button = event.target.closest('[data-category]'); 
+            if (button) loadCategory(button.dataset.category); 
+        }; 
+        
+        $('#app-view').onclick = event => { 
+            const button = event.target.closest('[data-open]'); 
+            if (button) openPost(Number(button.dataset.open)); 
+        }; 
+        
+        $('#search-input').oninput = event => { 
+            const term = event.target.value.toLowerCase(); 
+            renderCards(currentEntries.map((entry, index) => ({ entry, index })).filter(({ entry }) => 
+                `${entry.quote || ''} ${entry.title || ''} ${entry.tag || ''} ${entry.attribution || ''} ${entry.body || ''}`.toLowerCase().includes(term)
+            )); 
+        }; 
+        
+        $('#latest-button').onclick = () => { 
+            if (currentEntries.length) openPost(0); 
+        }; 
+        
+        $('#home-button').onclick = () => { 
+            window.location.hash = ''; 
+            loadCategory('inspirationals'); 
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+        }; 
+
+        // Enhanced Subscription Event
+        $('#subscribe-form').onsubmit = event => { 
+            event.preventDefault(); 
+            localStorage.setItem('subscriber-email', $('#email-input').value); 
+            $('#email-input').value = ''; 
+            
+            // Beautiful Welcome Message
+            showToast(`
+                <div class="flex flex-col items-center text-center gap-1">
+                    <span class="text-[#e7775d] text-2xl mb-1">&hearts;</span>
+                    <strong class="text-lg serif tracking-wide">Thank you for joining my journey.</strong>
+                    <span class="text-[#c4d8cf]">A little note of hope has been sent to your inbox. Welcome to the circle.</span>
+                </div>
+            `, 6000); // Stays on screen a bit longer (6 seconds)
+        }; 
+
+        // Initialize App
+        async function init() { 
+            try { 
+                const site = await (await fetch('content/site.json')).json(); 
+                $('#hero-eyebrow').textContent = site.heroEyebrow; 
+                $('#hero-headline').textContent = site.heroHeadline; 
+                $('#hero-subtext').textContent = site.heroSubtext; 
+                $('#hero-verse').textContent = site.heroVerseText.replace(/^\"|\"$/g, ''); 
+                $('#hero-reference').textContent = site.heroVerseRef; 
+                $('#about-bio').textContent = site.aboutBio; 
+            } catch (error) {} 
+            
+            // Run routing instead of direct category load
+            handleRouting();
+        } 
+        
+        init();
+        
+        // Listen for browser back/forward buttons
+        window.addEventListener('hashchange', handleRouting);
     </script>
 </body>
 </html>
