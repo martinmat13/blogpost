@@ -33,8 +33,7 @@
                 <span><strong class="serif text-xl tracking-tight">Held in the Morning</strong><span class="block text-xs text-[#6c7d78]">a journal of hope</span></span>
             </button>
             <div class="flex items-center gap-3">
-                <a href="#about" class="hidden sm:block text-sm font-semibold text-[#6c7d78] hover:text-[#263b38]">About</a>
-                <a href="#join" class="rounded-full bg-[#e7775d] px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#d8674e] transition">Join the circle</a>
+                <a href="#about" class="text-sm font-bold text-[#6c7d78] hover:text-[#263b38] transition">About the Journal</a>
             </div>
         </div>
     </header>
@@ -90,24 +89,6 @@
             <div class="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-[.8fr_1.2fr] gap-10 items-center">
                 <p class="serif text-4xl">A softer place to land.</p>
                 <p id="about-bio" class="text-lg leading-8 text-[#526761] max-w-2xl"></p>
-            </div>
-        </section>
-
-        <!-- Subscription Section -->
-        <section id="join" class="max-w-6xl mx-auto px-5 py-16">
-            <div class="rounded-[2rem] bg-[#263b38] text-white p-8 md:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-center">
-                <div>
-                    <p class="text-xs uppercase tracking-[.18em] font-bold text-[#f7e7b6]">Stay close</p>
-                    <h2 class="serif text-4xl mt-2">A little hope, delivered.</h2>
-                    <p class="text-[#c4d8cf] mt-3 max-w-xl">Join the circle for new stories, quiet prompts, and an occasional note from my corner of the world.</p>
-                </div>
-                <form id="subscribe-form" class="flex flex-col sm:flex-row gap-2">
-                    <label>
-                        <span class="sr-only">Your email address</span>
-                        <input id="email-input" type="email" required placeholder="you@example.com" class="rounded-full px-4 py-3 text-[#263b38] min-w-0 w-full sm:w-64 outline-none">
-                    </label>
-                    <button class="rounded-full bg-[#e7775d] px-5 py-3 font-bold hover:bg-[#d8674e] transition">Join free</button>
-                </form>
             </div>
         </section>
     </main>
@@ -345,22 +326,6 @@
             window.location.hash = ''; 
             loadCategory('inspirationals'); 
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
-        }; 
-
-        // Enhanced Subscription Event
-        $('#subscribe-form').onsubmit = event => { 
-            event.preventDefault(); 
-            localStorage.setItem('subscriber-email', $('#email-input').value); 
-            $('#email-input').value = ''; 
-            
-            // Beautiful Welcome Message
-            showToast(`
-                <div class="flex flex-col items-center text-center gap-1">
-                    <span class="text-[#e7775d] text-2xl mb-1">&hearts;</span>
-                    <strong class="text-lg serif tracking-wide">Thank you for joining my journey.</strong>
-                    <span class="text-[#c4d8cf]">A little note of hope has been sent to your inbox. Welcome to the circle.</span>
-                </div>
-            `, 6000); // Stays on screen a bit longer (6 seconds)
         }; 
 
         // Initialize App
