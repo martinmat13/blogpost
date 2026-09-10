@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A quiet journal about finding hope, faith and healing in ordinary days.">
-    <title>Held in the Morning | A journal of hope</title>
+    <title>Passionate about God! | A journal of hope</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,6 +44,19 @@
         .toast { animation: toast-in .4s cubic-bezier(0.16, 1, 0.3, 1) both; }
         @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 20px) scale(0.95); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
 
+        /* Editorial Drop Cap for the first paragraph of a story */
+        .story-body p:first-of-type::first-letter {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            float: left;
+            margin-top: 0.15rem;
+            margin-right: 0.5rem;
+            margin-bottom: -0.5rem;
+            line-height: 1;
+            color: var(--rose-rich);
+            font-weight: 600;
+        }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--pearl); }
         ::-webkit-scrollbar-thumb { background: var(--plum-border); border-radius: 10px; }
@@ -52,6 +65,9 @@
 </head>
 <body class="min-h-screen relative overflow-x-hidden selection:bg-[#fad2e1] selection:text-[#4a333d]">
     
+    <!-- Reading Progress Bar -->
+    <div id="progress-bar" class="fixed top-0 left-0 h-1 bg-[#b05c75] z-50 transition-all duration-150 w-0"></div>
+
     <header class="fixed top-0 w-full z-20 bg-white/85 backdrop-blur-md border-b-2 border-[#9d7d8a]">
         <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
             <button id="home-button" class="flex items-center gap-3 text-left group" aria-label="Go to the homepage">
@@ -59,12 +75,11 @@
                     <span class="serif text-xl italic text-[#b05c75] font-bold">H</span>
                 </div>
                 <span>
-                    <strong class="serif text-xl tracking-tight text-[#4a333d]">Held in the Morning</strong>
+                    <strong class="serif text-xl tracking-tight text-[#4a333d]">Passionate about God!</strong>
                     <span class="block text-[11px] uppercase tracking-widest text-[#7a666e] mt-0.5">A journal of hope</span>
                 </span>
             </button>
             <div class="flex items-center gap-3">
-                <!-- Button triggers the About Modal overlay -->
                 <button onclick="openAboutModal()" class="text-sm font-bold text-[#7a666e] hover:text-[#b05c75] transition border-2 border-transparent hover:border-[#9d7d8a] px-4 py-2 rounded-full bg-white shadow-sm">About Blessy Mary</button>
             </div>
         </div>
@@ -120,17 +135,14 @@
         <div class="min-h-full flex items-center justify-center">
             <div class="bg-[#fdfbfb] border-2 border-[#9d7d8a] rounded-[2rem] w-full max-w-5xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative modal-enter">
                 
-                <!-- Close Button -->
                 <button onclick="closeAboutModal()" class="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white border-2 border-[#9d7d8a] flex items-center justify-center text-[#7a666e] hover:bg-[#fad2e1] hover:text-[#b05c75] transition shadow-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
 
-                <!-- Left Column: Image -->
                 <div class="w-full md:w-2/5 h-64 md:h-auto bg-[#fcece0] relative border-b-2 md:border-b-0 md:border-r-2 border-[#9d7d8a]">
-                    <img id="about-image" src="" alt="Blessy Mary" class="absolute inset-0 w-full h-full object-cover">
+                    <img id="about-image" src="" alt="Blessy Mary" class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
                 </div>
 
-                <!-- Right Column: Info & Connect -->
                 <div class="w-full md:w-3/5 p-8 md:p-12 relative">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-[#fad2e1] opacity-30 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
                     
@@ -163,7 +175,7 @@
 
     <footer class="bg-[#fcece0] border-t-2 border-[#9d7d8a] px-5 py-10 text-sm text-[#7a666e] font-bold">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-4 items-center">
-            <span>&copy; 2026 Held in the Morning</span>
+            <span>&copy; 2026 Passionate about God!</span>
             <div class="flex items-center gap-2">
                 <span class="text-[#b05c75]">&hearts;</span>
                 <span>Made for the waiting, the healing, and the hopeful.</span>
@@ -181,18 +193,16 @@
         const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
         const slug = (category, index) => `${category}-${index}`;
         
-        // Modal Control Functions
         function openAboutModal() {
             const modal = document.getElementById('about-modal');
             modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Prevents background scrolling
+            document.body.style.overflow = 'hidden';
         }
         function closeAboutModal() {
             const modal = document.getElementById('about-modal');
             modal.classList.add('hidden');
-            document.body.style.overflow = 'auto'; // Restores scrolling
+            document.body.style.overflow = 'auto';
         }
-        // Close modal when clicking outside the box
         document.getElementById('about-modal').addEventListener('click', function(e) {
             if (e.target === this || e.target.closest('.min-h-full') === this.firstElementChild && !e.target.closest('.bg-\\[\\#fdfbfb\\]')) {
                 closeAboutModal();
@@ -275,7 +285,9 @@
             const id = slug(currentCategory, index); 
             window.location.hash = `post-${id}`;
             const titleText = entry.quote || entry.title || "Untitled";
-            const bodyText = entry.body ? `<div class="mt-8 text-lg md:text-xl font-medium leading-loose text-[#4a333d] whitespace-pre-wrap">${escapeHtml(entry.body)}</div>` : '';
+            
+            // Added the story-body class for the drop cap effect
+            const bodyText = entry.body ? `<div class="story-body mt-8 text-lg md:text-xl font-medium leading-loose text-[#4a333d] whitespace-pre-wrap">${escapeHtml(entry.body)}</div>` : '';
             const tagText = entry.tag || entry.year || entry.date || "Journal Entry";
 
             $('#app-view').innerHTML = `
@@ -322,7 +334,7 @@
 
             $('#back-button').onclick = () => loadCategory(currentCategory); 
             $('#like-button').onclick = () => { const next = getLikes(id) + 1; localStorage.setItem(`likes-${id}`, next); $('#like-count').textContent = next; showToast('<span class="text-[#fad2e1] text-lg leading-none">&hearts;</span> Thanks for sharing the love.'); }; 
-            $('#share-button').onclick = () => navigator.share ? navigator.share({ title: titleText, text: `A story from Held in the Morning`, url: location.href }) : showToast('Your browser does not support native sharing.'); 
+            $('#share-button').onclick = () => navigator.share ? navigator.share({ title: titleText, text: `A story from Passionate about God!`, url: location.href }) : showToast('Your browser does not support native sharing.'); 
             $('#copy-button').onclick = async () => { try { await navigator.clipboard.writeText(location.href); showToast('Story link copied to clipboard.'); } catch (err) { showToast('Failed to copy link.'); } }; 
             window.scrollTo({ top: $('#stories').offsetTop - 100, behavior: 'smooth' }); 
         }
@@ -350,6 +362,15 @@
         $('#latest-button').onclick = () => { if (currentEntries.length) openPost(0); }; 
         $('#home-button').onclick = () => { window.location.hash = ''; loadCategory('inspirationals'); window.scrollTo({ top: 0, behavior: 'smooth' }); }; 
 
+        // Reading Progress Bar Listener
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const bar = document.getElementById('progress-bar');
+            if (bar) bar.style.width = scrolled + '%';
+        });
+
         async function init() { 
             try { 
                 const site = await (await fetch('content/site.json')).json(); 
@@ -359,11 +380,9 @@
                 $('#hero-verse').textContent = site.heroVerseText.replace(/^\"|\"$/g, ''); 
                 $('#hero-reference').textContent = site.heroVerseRef; 
                 
-                // Populate Modal Data
                 $('#about-bio').textContent = site.aboutBio; 
                 $('#about-image').src = site.authorImage || '';
                 
-                // Setup Social Links
                 if(site.socialEmail) $('#link-email').href = site.socialEmail; else $('#link-email').style.display = 'none';
                 if(site.socialInstagram) $('#link-instagram').href = site.socialInstagram; else $('#link-instagram').style.display = 'none';
                 if(site.socialWebsite) $('#link-website').href = site.socialWebsite; else $('#link-website').style.display = 'none';
