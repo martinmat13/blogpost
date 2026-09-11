@@ -1,5 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A quiet journal about finding hope, faith and healing in ordinary days.">
+    <title>Passionate about God! | A journal of hope</title>
+    
+    <!-- This script loads all your beautiful styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- These load the elegant Lora and Nunito fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --pearl: #fdfbfb;
+            --rose-rich: #b05c75;
+            --rose-hover: #964a60;
+            --plum-border: #9d7d8a;
+            --text-dark: #4a333d;
+            --text-muted: #7a666e;
+        }
+        * { box-sizing: border-box; }
+        body { 
+            background-color: var(--pearl); 
+            color: var(--text-dark); 
+            font-family: 'Nunito', sans-serif; 
+        }
+        .serif { font-family: 'Lora', serif; }
+        
+        .hero-wash {
+            background: radial-gradient(circle at 10% 20%, #fad2e1 0%, transparent 50%),
+                        radial-gradient(circle at 90% 80%, #dbe7e4 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, #fcece0 0%, transparent 60%);
+            background-color: var(--pearl);
+        }
+
+        .story-card { transition: all 0.4s ease; }
+        .story-card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(157, 125, 138, 0.25); }
+        .fade-in { animation: fade-in 0.6s ease-out both; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .modal-enter { animation: modal-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        @keyframes modal-in { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        .toast { animation: toast-in .4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 20px) scale(0.95); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+
+        /* Editorial Drop Cap for the first paragraph of a story */
+        .story-body p:first-of-type::first-letter {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            float: left;
+            margin-top: 0.15rem;
+            margin-right: 0.5rem;
+            margin-bottom: -0.5rem;
+            line-height: 1;
+            color: var(--rose-rich);
+            font-weight: 600;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--pearl); }
+        ::-webkit-scrollbar-thumb { background: var(--plum-border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--rose-rich); }
+    </style>
+</head>
 
 <body class="min-h-screen relative overflow-x-hidden selection:bg-[#fad2e1] selection:text-[#4a333d]">
     
@@ -331,6 +399,5 @@
         init();
         window.addEventListener('hashchange', handleRouting);
     </script>
-    
 </body>
 </html>
