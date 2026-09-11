@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: github
+  repo: martinmat13/blogpost                       # Example: johndoe/blessy-blog
+  branch: main                                     # Ensure this is your main branch name
+  base_url: https://christiangurl28.vercel.app     # Your exact Vercel URL
+  auth_endpoint: api/auth                          # Points to the new Vercel serverless function
 
 media_folder: "content/images/uploads"
 public_folder: "/content/images/uploads"
