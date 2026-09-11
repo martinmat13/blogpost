@@ -305,13 +305,54 @@
             } 
         }
 
-        // Load and display anonymous comments with like buttons
+        async function openPost(index) { 
+            const entry = currentEntries[index]; 
+            if (!entry) return; 
+            const id = slug(currentCategory, index); 
+            window.location.hash = `post-${id}`;
+            const titleText = entry.title || entry.quote || "Untitled";
+            const heroImageHtml = entry.image ? `<img src="${entry.image}" alt="Featured image" class="w-full h-64 md:h-96 object-cover rounded-[2rem] my-8 border-2 border-[#9d7d8a] shadow-md">` : '';
+            const bodyText = entry.body ? `<div class="story-body mt-8 text-lg md:text-xl font-medium leading-loose text-[#4a333d] whitespace-pre-wrap">${escapeHtml(entry.body)}</div>` : '';
+            const tagText = entry.tag || entry.year || entry.date || "Journal Entry";
+            const initialLikes = await getLikes(id);
+
+            $('#app-view').innerHTML = `
+                <button id="back-button" class="mb-8 inline-flex items-center gap-2 text-sm font-extrabold text-[#7a666e] hover:text-[#b05c75] transition bg-white px-4 py-2 rounded-full border-2 border-[#9d7d8a] shadow-sm">&larr; Back to stories</button>
+                <article class="max-w-3xl mx-auto fade-in">
+                    <span class="inline-block bg-[#fad2e1] text-[#b05c75] px-4 py-1.5 rounded-full text-xs uppercase tracking-widest font-extrabold mb-5 border-2 border-[#9d7d8a]">${escapeHtml(tagText)}</span>
+                    <h2 class="serif text-4xl md:text-5xl font-semibold text-[#4a333d] leading-tight">${escapeHtml(titleText)}</h2>
+                    ${heroImageHtml}
+                    ${bodyText}
+                    <p class="mt-8 text-sm uppercase tracking-widest text-[#7a666e] font-extrabold bg-[#fcece0] inline-block px-4 py-2 rounded-lg border-2 border-[#9d7d8a]">${escapeHtml(entry.attribution || entry.readTime || '')}</p>
+                    
+                    <div class="border-y-2 border-[#9d7d8a] my-12 py-6 flex flex-wrap gap-3">
+                        <button id="like-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fae1e7] hover:text-[#b05c75] shadow-sm transition flex items-center gap-2">
+                            <span class="text-xl leading-none text-[#b05c75]">&hearts;</span> <span id="like-count">${initialLikes}</span> Likes
+                        </button>
+                        <button id="copy-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#e2efe8] shadow-sm transition">Copy Link</button>
+                        <button id="share-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fcf0d9] shadow-sm transition">Share Story</button>
+                    </div>
+
+                    <section class="bg-[#fdfbfb] p-8 md:p-10 rounded-[2rem] border-2 border-[#9d7d8a] shadow-md relative">
+                        <h3 class="serif text-2xl font-semibold text-[#4a333d] mb-2">Leave a little kindness</h3>
+                        <p class="text-sm font-bold text-[#7a666e] mb-6">No login required. Share an encouraging word.</p>
+                        
+                        <form id="comment-form" class="space-y-4 mb-8">
+                            <input id="comment-author" type="text" placeholder="Your Name" required class="w-full rounded-xl bg-white border-2 border-[#9d7d8a] px-4 py-2.5 text-sm font-medium outline-none focus:border-[#b05c75]">
+                            <textarea id="comment-body" rows="3" placeholder="Write your thoughts..." required class="w-full rounded-xl bg-white border-2 border-[#9d7d8a] px-4 py-2.5 text-sm font-medium outline-none focus:border-[#b05c75]"></textarea>
+                            <button id="submit-comment-btn" type="submit" class="rounded-full bg-[#b05c75] text-white px-6 py-2.5 font-bold text-sm hover:bg-[#964a60] transition shadow-sm">Post Comment</button>
+                        </form>
+
+                        <div id="comments-list"></div>
+                    </section>
+                </article>`; 
+
             async function loadComments() {
                 const container = $('#comments-list');
                 try {
                     const res = await fetch(`/api/comments?id=${id}`);
                     const data = await res.json();
-                    if (!data.comments.length) {
+                    if (!data.comments || !data.comments.length) {
                         container.innerHTML = '<p class="text-sm text-[#7a666e] italic">No thoughts shared yet. Be the first to leave a little kindness.</p>';
                         return;
                     }
@@ -368,7 +409,6 @@
 
             $('#back-button').onclick = () => loadCategory(currentCategory); 
             
-            // Fixed: Strict 1-like-per-browser check
             $('#like-button').onclick = async () => { 
                 const hasLikedKey = `liked_${id}`;
                 if (localStorage.getItem(hasLikedKey)) {
@@ -380,6 +420,11 @@
                 $('#like-count').textContent = next; 
                 showToast('<span class="text-[#fad2e1] text-lg leading-none">&hearts;</span> Thanks for sharing the love.'); 
             };
+
+            $('#share-button').onclick = () => navigator.share ? navigator.share({ title: titleText, text: `A story from Passionate about God!`, url: location.href }) : showToast('Your browser does not support native sharing.'); 
+            $('#copy-button').onclick = async () => { try { await navigator.clipboard.writeText(location.href); showToast('Story link copied to clipboard.'); } catch (err) { showToast('Failed to copy link.'); } }; 
+            window.scrollTo({ top: $('#stories').offsetTop - 100, behavior: 'smooth' }); 
+        }
 
         async function handleRouting() {
             const hash = window.location.hash;
