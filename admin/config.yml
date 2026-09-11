@@ -27,6 +27,7 @@ collections:
               - {label: "Category Tag", name: "tag", widget: "string", default: "Hope"}
               - {label: "Attribution (e.g., Psalm 30:5 or Read Time)", name: "attribution", widget: "string", required: false}
               - {label: "Card Color", name: "style", widget: "select", options: ["blush", "rose", "sage", "cream"], default: "blush"}
+              - {label: "Featured Image", name: "image", widget: "image", required: false}
 
       - file: "content/quietTime.json"
         label: "2. Quiet Time"
@@ -43,6 +44,7 @@ collections:
               - {label: "Category Tag", name: "tag", widget: "string", default: "Quiet Time"}
               - {label: "Attribution (e.g., Psalm 30:5 or Read Time)", name: "attribution", widget: "string", required: false}
               - {label: "Card Color", name: "style", widget: "select", options: ["blush", "rose", "sage", "cream"], default: "sage"}
+              - {label: "Featured Image", name: "image", widget: "image", required: false}
 
       - file: "content/beLikeJesus.json"
         label: "3. Be Like Jesus"
@@ -59,6 +61,7 @@ collections:
               - {label: "Category Tag", name: "tag", widget: "string", default: "Growth"}
               - {label: "Attribution (e.g., Psalm 30:5 or Read Time)", name: "attribution", widget: "string", required: false}
               - {label: "Card Color", name: "style", widget: "select", options: ["blush", "rose", "sage", "cream"], default: "cream"}
+              - {label: "Featured Image", name: "image", widget: "image", required: false}
 
       - file: "content/testimony.json"
         label: "4. Testimonies"
@@ -75,6 +78,7 @@ collections:
               - {label: "Category Tag", name: "tag", widget: "string", default: "Testimony"}
               - {label: "Attribution (e.g., Psalm 30:5 or Read Time)", name: "attribution", widget: "string", required: false}
               - {label: "Card Color", name: "style", widget: "select", options: ["blush", "rose", "sage", "cream"], default: "blush"}
+              - {label: "Featured Image", name: "image", widget: "image", required: false}
 
   - name: "site_settings"
     label: "⚙️ Homepage Settings"
