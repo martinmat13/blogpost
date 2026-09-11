@@ -240,27 +240,43 @@
             `).join(''); 
         }
 
-        function getLikes(id) { return Number(localStorage.getItem(`likes-${id}`) || 0); }
+        async function getLikes(id) {
+            try {
+                const res = await fetch(`/api/likes?id=${id}`);
+                const data = await res.json();
+                return data.likes || 0;
+            } catch (e) { return 0; }
+        }
 
-        function renderCards(entries) { 
+        async function incrementLikes(id) {
+            try {
+                const res = await fetch(`/api/likes?id=${id}`, { method: 'POST' });
+                const data = await res.json();
+                return data.likes || 0;
+            } catch (e) { return 0; }
+        }
+
+        async function renderCards(entries) { 
             if (!entries.length) { 
                 $('#app-view').innerHTML = '<div class="py-16 text-center bg-white rounded-3xl border-2 border-[#9d7d8a]"><p class="text-[#7a666e] font-bold text-lg">More stories are being written. Check back soon.</p></div>'; 
                 return; 
             } 
-            $('#app-view').innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">${entries.map(({ entry, index }, cardIndex) => { 
+            
+            const cardsHtml = await Promise.all(entries.map(async ({ entry, index }, cardIndex) => { 
                 const id = slug(currentCategory, index); 
-                const tint = entry.style === 'sage' ? 'bg-[#e2efe8]' : entry.style === 'cream' ? 'bg-[#fcf0d9]' : 'bg-[#fae1e7]'; 
+                const tint = entry.style === 'sage' ? 'bg-[#e2efe8]' : entry.style === 'cream' ? 'bg-[#fcf0d9]' : entry.style === 'blush' ? 'bg-[#fae1e7]' : 'bg-[#fae1e7]'; 
                 const titleText = entry.title || entry.quote || "Untitled";
                 const imageHtml = entry.image ? `<img src="${entry.image}" alt="Story image" class="w-full h-48 object-cover rounded-[1rem] mb-5 border-2 border-[#9d7d8a] shadow-sm">` : '';
                 const bodyText = entry.body ? `<p class="text-sm font-medium text-[#5c4a52] mt-4 line-clamp-3 leading-relaxed">${escapeHtml(entry.body)}</p>` : '';
                 const tagText = entry.tag || entry.year || entry.date || "Journal Entry";
+                const likeCount = await getLikes(id);
                 
                 return `
                 <article class="story-card ${tint} border-2 border-[#9d7d8a] rounded-[2rem] p-7 min-h-[280px] flex flex-col justify-between fade-in group cursor-pointer shadow-sm" data-open="${index}" style="animation-delay:${cardIndex * .06}s">
                     <div>
                         <div class="flex items-center justify-between gap-3 mb-5">
                             <span class="text-xs uppercase tracking-widest font-extrabold text-[#b05c75] bg-white/60 px-3 py-1 rounded-full border border-[#9d7d8a]">${escapeHtml(tagText)}</span>
-                            <span class="text-xs text-[#7a666e] font-bold bg-white/60 px-2 py-1 rounded-full border border-[#9d7d8a]">&hearts; ${getLikes(id)}</span>
+                            <span class="text-xs text-[#7a666e] font-bold bg-white/60 px-2 py-1 rounded-full border border-[#9d7d8a]">&hearts; ${likeCount}</span>
                         </div>
                         ${imageHtml}
                         <h3 class="serif text-2xl font-semibold text-[#4a333d] leading-snug group-hover:text-[#b05c75] transition-colors">${escapeHtml(titleText)}</h3>
@@ -271,7 +287,9 @@
                         <span class="text-[#b05c75] font-extrabold text-sm transform group-hover:translate-x-1 transition duration-300 bg-white/60 px-3 py-1 rounded-full border border-[#b05c75]/30">Read &rarr;</span>
                     </div>
                 </article>`; 
-            }).join('')}</div>`; 
+            }));
+
+            $('#app-view').innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">${cardsHtml.join('')}</div>`; 
         }
 
         async function loadCategory(category) { 
@@ -281,22 +299,22 @@
             try { 
                 const data = await fetchContent(category); 
                 currentEntries = data.entries || []; 
-                renderCards(currentEntries.map((entry, index) => ({ entry, index }))); 
+                await renderCards(currentEntries.map((entry, index) => ({ entry, index }))); 
             } catch (error) { 
                 $('#app-view').innerHTML = '<p class="py-16 text-center font-bold text-[#b05c75]">Stories are taking a quiet moment. Please try again.</p>'; 
             } 
         }
 
-        function openPost(index) { 
+        async function openPost(index) { 
             const entry = currentEntries[index]; 
             if (!entry) return; 
             const id = slug(currentCategory, index); 
             window.location.hash = `post-${id}`;
-            const titleText = entry.quote || entry.title || "Untitled";
+            const titleText = entry.title || entry.quote || "Untitled";
             const heroImageHtml = entry.image ? `<img src="${entry.image}" alt="Featured image" class="w-full h-64 md:h-96 object-cover rounded-[2rem] my-8 border-2 border-[#9d7d8a] shadow-md">` : '';
-            // Added the story-body class for the drop cap effect
             const bodyText = entry.body ? `<div class="story-body mt-8 text-lg md:text-xl font-medium leading-loose text-[#4a333d] whitespace-pre-wrap">${escapeHtml(entry.body)}</div>` : '';
             const tagText = entry.tag || entry.year || entry.date || "Journal Entry";
+            const initialLikes = await getLikes(id);
 
             $('#app-view').innerHTML = `
                 <button id="back-button" class="mb-8 inline-flex items-center gap-2 text-sm font-extrabold text-[#7a666e] hover:text-[#b05c75] transition bg-white px-4 py-2 rounded-full border-2 border-[#9d7d8a] shadow-sm">&larr; Back to stories</button>
@@ -309,40 +327,78 @@
                     
                     <div class="border-y-2 border-[#9d7d8a] my-12 py-6 flex flex-wrap gap-3">
                         <button id="like-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fae1e7] hover:text-[#b05c75] shadow-sm transition flex items-center gap-2">
-                            <span class="text-xl leading-none text-[#b05c75]">&hearts;</span> <span id="like-count">${getLikes(id)}</span> Likes
+                            <span class="text-xl leading-none text-[#b05c75]">&hearts;</span> <span id="like-count">${initialLikes}</span> Likes
                         </button>
                         <button id="copy-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#e2efe8] shadow-sm transition">Copy Link</button>
                         <button id="share-button" class="rounded-full bg-white border-2 border-[#9d7d8a] px-6 py-2.5 text-sm font-extrabold text-[#4a333d] hover:bg-[#fcf0d9] shadow-sm transition">Share Story</button>
                     </div>
 
-                    <section class="bg-[#fdfbfb] p-8 md:p-10 rounded-[2rem] border-2 border-[#9d7d8a] shadow-md relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-[#fad2e1] opacity-40 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                        <h3 class="serif text-2xl font-semibold text-[#4a333d] mb-2 relative z-10">Leave a little kindness</h3>
-                        <p class="text-sm font-bold text-[#7a666e] mb-8 relative z-10">Sign in with GitHub to share your thoughts publicly.</p>
-                        <div id="giscus-container" class="relative z-10"></div>
+                    <section class="bg-[#fdfbfb] p-8 md:p-10 rounded-[2rem] border-2 border-[#9d7d8a] shadow-md relative">
+                        <h3 class="serif text-2xl font-semibold text-[#4a333d] mb-2">Leave a little kindness</h3>
+                        <p class="text-sm font-bold text-[#7a666e] mb-6">No login required. Share an encouraging word.</p>
+                        
+                        <form id="comment-form" class="space-y-4 mb-8">
+                            <input id="comment-author" type="text" placeholder="Your Name" required class="w-full rounded-xl bg-white border-2 border-[#9d7d8a] px-4 py-2.5 text-sm font-medium outline-none focus:border-[#b05c75]">
+                            <textarea id="comment-body" rows="3" placeholder="Write your thoughts..." required class="w-full rounded-xl bg-white border-2 border-[#9d7d8a] px-4 py-2.5 text-sm font-medium outline-none focus:border-[#b05c75]"></textarea>
+                            <button id="submit-comment-btn" type="submit" class="rounded-full bg-[#b05c75] text-white px-6 py-2.5 font-bold text-sm hover:bg-[#964a60] transition shadow-sm">Post Comment</button>
+                        </form>
+
+                        <div id="comments-list"></div>
                     </section>
                 </article>`; 
 
-            const script = document.createElement("script");
-            script.src = "https://giscus.app/client.js";
-            script.setAttribute("data-repo", "YOUR_GITHUB_USERNAME/YOUR_REPO_NAME"); 
-            script.setAttribute("data-repo-id", "YOUR_REPO_ID");                     
-            script.setAttribute("data-category", "General");                         
-            script.setAttribute("data-category-id", "YOUR_CATEGORY_ID");             
-            script.setAttribute("data-mapping", "specific");
-            script.setAttribute("data-term", id); 
-            script.setAttribute("data-strict", "0");
-            script.setAttribute("data-reactions-enabled", "1");
-            script.setAttribute("data-emit-metadata", "0");
-            script.setAttribute("data-input-position", "bottom");
-            script.setAttribute("data-theme", "light");
-            script.setAttribute("data-lang", "en");
-            script.setAttribute("crossorigin", "anonymous");
-            script.async = true;
-            document.getElementById("giscus-container").appendChild(script);
+            async function loadComments() {
+                const container = $('#comments-list');
+                try {
+                    const res = await fetch(`/api/comments?id=${id}`);
+                    const data = await res.json();
+                    if (!data.comments.length) {
+                        container.innerHTML = '<p class="text-sm text-[#7a666e] italic">No thoughts shared yet. Be the first to leave a little kindness.</p>';
+                        return;
+                    }
+                    container.innerHTML = data.comments.map(c => `
+                        <div class="bg-white p-5 rounded-2xl border-2 border-[#9d7d8a] shadow-sm mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <strong class="text-sm font-extrabold text-[#b05c75]">${escapeHtml(c.author)}</strong>
+                                <span class="text-[11px] text-[#7a666e]">${new Date(c.date).toLocaleDateString()}</span>
+                            </div>
+                            <p class="text-sm font-medium text-[#4a333d] whitespace-pre-wrap">${escapeHtml(c.body)}</p>
+                        </div>
+                    `).join('');
+                } catch (e) { container.innerHTML = '<p class="text-sm text-[#b05c75]">Could not load comments.</p>'; }
+            }
+            loadComments();
+
+            $('#comment-form').onsubmit = async (e) => {
+                e.preventDefault();
+                const author = $('#comment-author').value;
+                const body = $('#comment-body').value;
+                const btn = $('#submit-comment-btn');
+                
+                btn.textContent = 'Sending...';
+                const res = await fetch(`/api/comments?id=${id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ author, body })
+                });
+                
+                if (res.ok) {
+                    $('#comment-author').value = '';
+                    $('#comment-body').value = '';
+                    showToast('Thank you for sharing your thoughts!');
+                    loadComments();
+                } else {
+                    showToast('Failed to post comment.');
+                }
+                btn.textContent = 'Post Comment';
+            };
 
             $('#back-button').onclick = () => loadCategory(currentCategory); 
-            $('#like-button').onclick = () => { const next = getLikes(id) + 1; localStorage.setItem(`likes-${id}`, next); $('#like-count').textContent = next; showToast('<span class="text-[#fad2e1] text-lg leading-none">&hearts;</span> Thanks for sharing the love.'); }; 
+            $('#like-button').onclick = async () => { 
+                const next = await incrementLikes(id); 
+                $('#like-count').textContent = next; 
+                showToast('<span class="text-[#fad2e1] text-lg leading-none">&hearts;</span> Thanks for sharing the love.'); 
+            }; 
             $('#share-button').onclick = () => navigator.share ? navigator.share({ title: titleText, text: `A story from Passionate about God!`, url: location.href }) : showToast('Your browser does not support native sharing.'); 
             $('#copy-button').onclick = async () => { try { await navigator.clipboard.writeText(location.href); showToast('Story link copied to clipboard.'); } catch (err) { showToast('Failed to copy link.'); } }; 
             window.scrollTo({ top: $('#stories').offsetTop - 100, behavior: 'smooth' }); 
