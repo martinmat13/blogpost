@@ -4,7 +4,6 @@ backend:
   branch: main
   base_url: https://christiangurl28.vercel.app/api
 
-# Where images are stored
 media_folder: "content/images"
 public_folder: "content/images"
 
@@ -20,13 +19,14 @@ collections:
           - label: "Stories"
             name: "entries"
             widget: "list"
-            summary: '{{fields.title}} ({{fields.tag}})'
+            summary: '{{fields.title}} {{fields.quote}} ({{fields.tag}})'
             fields:
-              - {label: "Title", name: "title", widget: "string"}
-              - {label: "Category Tag (e.g., Faith, Waiting)", name: "tag", widget: "string", default: "Inspirational"}
-              - {label: "Card Color", name: "style", widget: "select", options: ["rose", "sage", "cream"], default: "rose"}
-              - {label: "Story Body", name: "body", widget: "text"}
-              - {label: "Read Time or Date (e.g., 3 min read)", name: "attribution", widget: "string", required: false}
+              - {label: "Title", name: "title", widget: "string", required: false}
+              - {label: "Quote / Featured Text", name: "quote", widget: "text", required: false}
+              - {label: "Story Body", name: "body", widget: "text", required: false}
+              - {label: "Category Tag", name: "tag", widget: "string", default: "Hope"}
+              - {label: "Attribution (e.g., Psalm 30:5 or Read Time)", name: "attribution", widget: "string", required: false}
+              - {label: "Card Color", name: "style", widget: "select", options: ["blush", "rose", "sage", "cream"], default: "blush"}
 
       - file: "content/quietTime.json"
         label: "2. Quiet Time"
@@ -35,13 +35,14 @@ collections:
           - label: "Stories"
             name: "entries"
             widget: "list"
-            summary: '{{fields.title}} ({{fields.tag}})'
+            summary: '{{fields.title}} {{fields.quote}} ({{fields.tag}})'
             fields:
-              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Title", name: "title", widget: "string", required: false}
+              - {label: "Quote / Featured Text", name: "quote", widget: "text", required: false}
+              - {label: "Story Body", name: "body", widget: "text", required: false}
               - {label: "Category Tag", name: "tag", widget: "string", default: "Quiet Time"}
-              - {label: "Card Color", name: "style", widget: "select", options: ["rose", "sage", "cream"], default: "sage"}
-              - {label: "Story Body", name: "body", widget: "text"}
-              - {label: "Read Time or Date", name: "attribution", widget: "string", required: false}
+              - {label: "Attribution (e.g., Psalm 30:5 or Read Time)", name: "attribution", widget: "string", required: false}
+              - {label: "Card Color", name: "style", widget: "select", options: ["blush", "rose", "sage", "cream"], default: "sage"}
 
       - file: "content/beLikeJesus.json"
         label: "3. Be Like Jesus"
@@ -50,13 +51,14 @@ collections:
           - label: "Stories"
             name: "entries"
             widget: "list"
-            summary: '{{fields.title}} ({{fields.tag}})'
+            summary: '{{fields.title}} {{fields.quote}} ({{fields.tag}})'
             fields:
-              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Title", name: "title", widget: "string", required: false}
+              - {label: "Quote / Featured Text", name: "quote", widget: "text", required: false}
+              - {label: "Story Body", name: "body", widget: "text", required: false}
               - {label: "Category Tag", name: "tag", widget: "string", default: "Growth"}
-              - {label: "Card Color", name: "style", widget: "select", options: ["rose", "sage", "cream"], default: "cream"}
-              - {label: "Story Body", name: "body", widget: "text"}
-              - {label: "Read Time or Date", name: "attribution", widget: "string", required: false}
+              - {label: "Attribution (e.g., Psalm 30:5 or Read Time)", name: "attribution", widget: "string", required: false}
+              - {label: "Card Color", name: "style", widget: "select", options: ["blush", "rose", "sage", "cream"], default: "cream"}
 
       - file: "content/testimony.json"
         label: "4. Testimonies"
@@ -65,13 +67,14 @@ collections:
           - label: "Stories"
             name: "entries"
             widget: "list"
-            summary: '{{fields.title}} ({{fields.tag}})'
+            summary: '{{fields.title}} {{fields.quote}} ({{fields.tag}})'
             fields:
-              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Title", name: "title", widget: "string", required: false}
+              - {label: "Quote / Featured Text", name: "quote", widget: "text", required: false}
+              - {label: "Story Body", name: "body", widget: "text", required: false}
               - {label: "Category Tag", name: "tag", widget: "string", default: "Testimony"}
-              - {label: "Card Color", name: "style", widget: "select", options: ["rose", "sage", "cream"], default: "rose"}
-              - {label: "Story Body", name: "body", widget: "text"}
-              - {label: "Read Time or Date", name: "attribution", widget: "string", required: false}
+              - {label: "Attribution (e.g., Psalm 30:5 or Read Time)", name: "attribution", widget: "string", required: false}
+              - {label: "Card Color", name: "style", widget: "select", options: ["blush", "rose", "sage", "cream"], default: "blush"}
 
   - name: "site_settings"
     label: "⚙️ Homepage Settings"
