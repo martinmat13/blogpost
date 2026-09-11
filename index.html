@@ -250,7 +250,7 @@
             $('#app-view').innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">${entries.map(({ entry, index }, cardIndex) => { 
                 const id = slug(currentCategory, index); 
                 const tint = entry.style === 'sage' ? 'bg-[#e2efe8]' : entry.style === 'cream' ? 'bg-[#fcf0d9]' : 'bg-[#fae1e7]'; 
-                const titleText = entry.quote || entry.title || "Untitled";
+                const titleText = entry.title || entry.quote || "Untitled";
                 const bodyText = entry.body ? `<p class="text-sm font-medium text-[#5c4a52] mt-4 line-clamp-3 leading-relaxed">${escapeHtml(entry.body)}</p>` : '';
                 const tagText = entry.tag || entry.year || entry.date || "Journal Entry";
                 
