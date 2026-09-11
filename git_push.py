@@ -45,12 +45,12 @@ def main():
     print("\n" + "="*60)
     print("👀 PREVIEW MODE ACTIVE 👀")
     print("Your browser has opened to preview the site locally.")
-    print("Verify your changes now to save Netlify deploy credits.")
+    print("Verify your changes now to save Vercel deploy resources.")
     print("="*60 + "\n")
 
     # Ask for user confirmation before pushing
     try:
-        choice = input("Does everything look good? Deploy to Netlify? (y/N): ").strip().lower()
+        choice = input("Does everything look good? Deploy to Vercel? (y/N): ").strip().lower()
     except KeyboardInterrupt:
         choice = 'n'
         print("\n")
@@ -81,11 +81,11 @@ def main():
     if commit_process.returncode != 0:
         print("\n⚠️ No changes to commit or commit failed. Proceeding to push anyway...")
 
-    # 5. Push to remote repository (Triggers Netlify)
+    # 5. Push to remote repository (Triggers Vercel)
     print("\n--- [5/5] Pushing to GitHub ---")
     run_command("git push")
 
-    print("\n✨ Successfully pushed to GitHub! Netlify is now building your site.")
+    print("\n✨ Successfully pushed to GitHub! Vercel is now building your site.")
 
 if __name__ == "__main__":
     main()
