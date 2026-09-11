@@ -3,13 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Naomi Claire — Content Manager</title>
+  <title>Passionate about God! — Content Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink: #342a2d; --rose: #b05c75; --mist: #fdf8f7; --line: #dbc7cd; }
+    body { margin: 0; background: var(--mist); color: var(--ink); font-family: 'DM Sans', sans-serif; }
+    .admin-loading { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at 15% 20%, #f8dce4, transparent 42%), radial-gradient(circle at 90% 80%, #e4efe9, transparent 40%), var(--mist); }
+    .admin-loading-card { width: min(100%, 520px); padding: 42px; text-align: center; background: rgba(255,255,255,.82); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 20px 60px rgba(91,58,68,.12); }
+    .admin-mark { display: grid; place-items: center; width: 58px; height: 58px; margin: 0 auto 18px; border-radius: 50%; background: #f8dce4; color: var(--rose); font: 700 28px 'Playfair Display', serif; }
+    .admin-loading h1 { margin: 0 0 10px; font: 700 30px 'Playfair Display', serif; }
+    .admin-loading p { margin: 0; color: #77666b; line-height: 1.6; }
+    .admin-loading::after { content: ''; position: fixed; bottom: 28px; width: 34px; height: 3px; border-radius: 3px; background: var(--rose); animation: breathe 1.2s ease-in-out infinite alternate; }
+    @keyframes breathe { from { opacity: .25; transform: scaleX(.55); } to { opacity: 1; transform: scaleX(1); } }
+  </style>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <!-- Decap CMS (formerly Netlify CMS) -->
+  <div class="admin-loading" id="admin-loading">
+    <div class="admin-loading-card">
+      <div class="admin-mark">H</div>
+      <h1>Welcome to your journal</h1>
+      <p>Preparing your private writing room. You will be able to update stories, images, and the homepage in a moment.</p>
+    </div>
+  </div>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
+    window.setTimeout(() => document.getElementById('admin-loading')?.remove(), 1200);
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", (user) => {
         if (!user) {
