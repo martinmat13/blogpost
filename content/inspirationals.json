@@ -4,13 +4,9 @@
       "quote": "Weeping may endure for a night, but joy cometh in the morning.",
       "attribution": "Psalm 30:5",
       "tag": "Hope",
-      "style": "blush"
-    },
-    {
-      "quote": "The Lord is my strength and my shield; my heart trusted in Him, and I am helped.",
-      "attribution": "Psalm 28:7",
-      "tag": "Strength",
-      "style": "sage"
+      "style": "blush",
+      "title": "Inspire me",
+      "body": "123"
     }
   ]
 }
