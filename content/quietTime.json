@@ -1,16 +1,13 @@
 {
   "entries": [
     {
-      "quote": "Faith is the substance of things hoped for, the evidence of things not seen.",
-      "attribution": "Hebrews 11:1",
-      "tag": "Faith",
-      "style": "blush"
-    },
-    {
       "quote": "the evidence of things not seen.",
       "attribution": "Hebrews 11:21",
       "tag": "Faith",
-      "style": "blush"
+      "style": "blush",
+      "date": "June 01",
+      "title": "Test Quiet time",
+      "body": "Hello this is test"
     }
   ]
 }
