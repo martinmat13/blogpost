@@ -2,9 +2,11 @@
   "entries": [
     {
       "quote": "A small thought: healing rarely looks like a light switch. More often, it's a sunrise — slow, quiet, and still entirely a miracle.",
-      "attribution": "— Naomi",
+      "attribution": "5 minutes",
       "tag": "Healing",
-      "style": "cream"
+      "style": "cream",
+      "title": "Test 1",
+      "body": "I am testing it"
     }
   ]
 }
