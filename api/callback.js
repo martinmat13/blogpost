@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   const { code } = req.query;
 
   try {
@@ -18,7 +18,6 @@ export default async function handler(req, res) {
     const data = await response.json();
     const token = data.access_token;
 
-    // Send the token safely back to the CMS popup window
     const script = `
       <script>
         const receiveMessage = (message) => {
@@ -32,8 +31,8 @@ export default async function handler(req, res) {
         window.opener.postMessage('authorizing:github', '*');
       </script>
     `;
-    res.send(script);
+    res.status(200).send(script);
   } catch (err) {
     res.status(500).send('Authentication failed.');
   }
-}
+};
