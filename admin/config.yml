@@ -1,125 +1,89 @@
 backend:
   name: github
-  repo: martinmat13/blogpost                       # Example: johndoe/blessy-blog
-  branch: main                                     # Ensure this is your main branch name
-  base_url: https://christiangurl28.vercel.app     # Your exact Vercel URL
-  auth_endpoint: api/auth                          # Points to the new Vercel serverless function
-site_url: https://christiangurl28.vercel.app
-display_url: https://christiangurl28.vercel.app
+  repo: martinmat13/blogpost
+  branch: main
+  base_url: https://christiangurl28.vercel.app/api
 
-media_folder: "content/images/uploads"
-public_folder: "/content/images/uploads"
+# Where images are stored
+media_folder: "content/images"
+public_folder: "content/images"
 
-# The dashboard she sees is organized into these sections,
-# matching the sections of the website.
 collections:
-
-  - name: "site"
-    label: "Homepage & Hero"
-    files:
-      - file: "content/site.json"
-        label: "Homepage Text"
-        name: "site"
-        fields:
-          - { label: "Hero eyebrow line (script text above headline)", name: "heroEyebrow", widget: "string" }
-          - { label: "Hero headline", name: "heroHeadline", widget: "string" }
-          - { label: "Hero subtext", name: "heroSubtext", widget: "text" }
-          - { label: "Hero verse text", name: "heroVerseText", widget: "string" }
-          - { label: "Hero verse reference", name: "heroVerseRef", widget: "string" }
-          - { label: "About / bio paragraph", name: "aboutBio", widget: "text" }
-          - { label: "Stat A value", name: "statAValue", widget: "string" }
-          - { label: "Stat A label", name: "statALabel", widget: "string" }
-          - { label: "Stat B value", name: "statBValue", widget: "string" }
-          - { label: "Stat B label", name: "statBLabel", widget: "string" }
-          - { label: "Stat C value", name: "statCValue", widget: "string" }
-          - { label: "Stat C label", name: "statCLabel", widget: "string" }
-          - { label: "Featured post title", name: "postTitle", widget: "string" }
-          - { label: "Featured post excerpt", name: "postExcerpt", widget: "text" }
-          - { label: "Author Profile Image", name: "authorImage", widget: "image", required: false }
-          - { label: "Email Link (e.g., mailto:email@example.com)", name: "socialEmail", widget: "string", required: false }
-          - { label: "Instagram Link", name: "socialInstagram", widget: "string", required: false }
-          - { label: "Blogger/Website Link", name: "socialWebsite", widget: "string", required: false }
-
-  - name: "testimony"
-    label: "My Testimony (Timeline)"
-    files:
-      - file: "content/testimony.json"
-        label: "Timeline Entries"
-        name: "testimony"
-        fields:
-          - label: "Timeline entries, in order"
-            name: "entries"
-            widget: "list"
-            summary: "{{year}} — {{title}}"
-            fields:
-              - { label: "Year or label (e.g. 2019, or Today)", name: "year", widget: "string" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Story", name: "body", widget: "text" }
-              - label: "Icon"
-                name: "icon"
-                widget: "select"
-                options:
-                  - { label: "Info circle", value: "circle-info" }
-                  - { label: "Moon (night season)", value: "moon" }
-                  - { label: "Sparkle (hope)", value: "sparkle" }
-                  - { label: "Heart (healing)", value: "heart" }
-                  - { label: "Wind (freedom)", value: "wind" }
-              - label: "Marker color"
-                name: "markerColor"
-                widget: "select"
-                options: ["blush", "sage", "gold"]
-
-  - name: "quietTime"
-    label: "My Quiet Time Study"
-    files:
-      - file: "content/quietTime.json"
-        label: "Journal Entries"
-        name: "quietTime"
-        fields:
-          - label: "Journal entries"
-            name: "entries"
-            widget: "list"
-            summary: "{{date}} — {{title}}"
-            fields:
-              - { label: "Date (e.g. March 14)", name: "date", widget: "string" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Reflection", name: "body", widget: "text" }
-
-  - name: "beLikeJesus"
-    label: "Be Like Jesus Series!"
-    files:
-      - file: "content/beLikeJesus.json"
-        label: "Devotional Steps"
-        name: "beLikeJesus"
-        fields:
-          - label: "Steps, in order"
-            name: "entries"
-            widget: "list"
-            summary: "{{title}}"
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Devotional text", name: "body", widget: "text" }
-              - { label: "Read time (e.g. 5 min read)", name: "readTime", widget: "string", default: "5 min read" }
-
-  - name: "inspirationals"
-    label: "INSPIRATIONALS!!"
+  - name: "journal_sections"
+    label: "📖 Journal Stories"
+    description: "Manage the stories across your four main categories."
     files:
       - file: "content/inspirationals.json"
-        label: "Quotes & Thoughts"
+        label: "1. Inspirationals"
         name: "inspirationals"
         fields:
-          - label: "Quote cards"
+          - label: "Stories"
             name: "entries"
             widget: "list"
-            summary: "{{quote}}"
+            summary: '{{fields.title}} ({{fields.tag}})'
             fields:
-              - { label: "Quote or short thought", name: "quote", widget: "text" }
-              - { label: "Attribution (e.g. Psalm 30:5, or — Naomi)", name: "attribution", widget: "string" }
-              - label: "Category"
-                name: "tag"
-                widget: "select"
-                options: ["Hope", "Strength", "Healing", "Faith"]
-              - label: "Card color"
-                name: "style"
-                widget: "select"
-                options: ["blush", "sage", "cream"]
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Category Tag (e.g., Faith, Waiting)", name: "tag", widget: "string", default: "Inspirational"}
+              - {label: "Card Color", name: "style", widget: "select", options: ["rose", "sage", "cream"], default: "rose"}
+              - {label: "Story Body", name: "body", widget: "text"}
+              - {label: "Read Time or Date (e.g., 3 min read)", name: "attribution", widget: "string", required: false}
+
+      - file: "content/quietTime.json"
+        label: "2. Quiet Time"
+        name: "quietTime"
+        fields:
+          - label: "Stories"
+            name: "entries"
+            widget: "list"
+            summary: '{{fields.title}} ({{fields.tag}})'
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Category Tag", name: "tag", widget: "string", default: "Quiet Time"}
+              - {label: "Card Color", name: "style", widget: "select", options: ["rose", "sage", "cream"], default: "sage"}
+              - {label: "Story Body", name: "body", widget: "text"}
+              - {label: "Read Time or Date", name: "attribution", widget: "string", required: false}
+
+      - file: "content/beLikeJesus.json"
+        label: "3. Be Like Jesus"
+        name: "beLikeJesus"
+        fields:
+          - label: "Stories"
+            name: "entries"
+            widget: "list"
+            summary: '{{fields.title}} ({{fields.tag}})'
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Category Tag", name: "tag", widget: "string", default: "Growth"}
+              - {label: "Card Color", name: "style", widget: "select", options: ["rose", "sage", "cream"], default: "cream"}
+              - {label: "Story Body", name: "body", widget: "text"}
+              - {label: "Read Time or Date", name: "attribution", widget: "string", required: false}
+
+      - file: "content/testimony.json"
+        label: "4. Testimonies"
+        name: "testimony"
+        fields:
+          - label: "Stories"
+            name: "entries"
+            widget: "list"
+            summary: '{{fields.title}} ({{fields.tag}})'
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Category Tag", name: "tag", widget: "string", default: "Testimony"}
+              - {label: "Card Color", name: "style", widget: "select", options: ["rose", "sage", "cream"], default: "rose"}
+              - {label: "Story Body", name: "body", widget: "text"}
+              - {label: "Read Time or Date", name: "attribution", widget: "string", required: false}
+
+  - name: "site_settings"
+    label: "⚙️ Homepage Settings"
+    description: "Edit the main bio and words on the homepage."
+    files:
+      - file: "content/site.json"
+        label: "Homepage Text & Bio"
+        name: "site"
+        fields:
+          - {label: "Top Tiny Text", name: "heroEyebrow", widget: "string"}
+          - {label: "Main Big Headline", name: "heroHeadline", widget: "string"}
+          - {label: "Subtext under Headline", name: "heroSubtext", widget: "text"}
+          - {label: "Bible Verse (Quote box)", name: "heroVerseText", widget: "text"}
+          - {label: "Verse Reference", name: "heroVerseRef", widget: "string"}
+          - {label: "About Me Bio", name: "aboutBio", widget: "text"}
