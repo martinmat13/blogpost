@@ -94,3 +94,21 @@ collections:
           - {label: "Bible Verse (Quote box)", name: "heroVerseText", widget: "text"}
           - {label: "Verse Reference", name: "heroVerseRef", widget: "string"}
           - {label: "About Me Bio", name: "aboutBio", widget: "text"}
+
+  - name: "comments_moderation"
+    label: "💬 Comments Moderation"
+    description: "Monitor and delete reader comments."
+    files:
+      - file: "content/comments_store.json"
+        label: "All Comments"
+        name: "comments_store"
+        fields:
+          - label: "Stored Comments"
+            name: "entries"
+            widget: "list"
+            summary: '{{fields.author}}: {{fields.body}}'
+            fields:
+              - {label: "Post ID", name: "postId", widget: "string"}
+              - {label: "Author Name", name: "author", widget: "string"}
+              - {label: "Comment Body", name: "body", widget: "text"}
+              - {label: "Date", name: "date", widget: "string"}
